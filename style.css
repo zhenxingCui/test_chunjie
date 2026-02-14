@@ -1,0 +1,667 @@
+/* 马年拜年祝福 - 红色主题手机端适配 */
+
+/* CSS变量 */
+:root {
+    --primary-red: #C41E3A;
+    --deep-red: #8B0000;
+    --light-red: #E8D5D5;
+    --gold: #FFD700;
+    --light-gold: #FFF8DC;
+    --white: #FFFFFF;
+    --black: #333333;
+}
+
+/* 重置样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, var(--primary-red) 0%, var(--deep-red) 100%);
+}
+
+/* 页面基础样式 */
+.page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    -webkit-overflow-scrolling: touch;
+}
+
+.page-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========== 输入页面 ========== */
+#inputPage {
+    background: linear-gradient(180deg, var(--primary-red) 0%, var(--deep-red) 100%);
+}
+
+.input-content {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* 顶部装饰 */
+.top-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    pointer-events: none;
+}
+
+.top-pattern svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* 标题区域 */
+.header-section {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    animation: fadeInDown 0.8s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.main-title {
+    font-size: 36px;
+    color: var(--gold);
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.subtitle {
+    font-size: 16px;
+    color: var(--light-gold);
+    opacity: 0.9;
+    letter-spacing: 2px;
+}
+
+/* 表单区域 */
+.form-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px 25px;
+    margin: 0 10px 30px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    color: var(--light-gold);
+    font-size: 14px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 3px;
+    color: var(--black);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    transform: scale(1.02);
+}
+
+.input-group input::placeholder {
+    color: #999;
+    letter-spacing: 2px;
+}
+
+/* 生成按钮 */
+.start-btn {
+    width: 100%;
+    padding: 18px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, var(--gold) 0%, #FFA500 100%);
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--deep-red);
+    letter-spacing: 4px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.start-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+}
+
+.start-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%);
+    transform: rotate(45deg) translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.start-btn:active::after {
+    transform: rotate(45deg) translateX(100%);
+}
+
+/* 底部装饰 */
+.bottom-decoration {
+    margin-top: auto;
+    text-align: center;
+    padding-bottom: 30px;
+    animation: fadeIn 1s ease 0.5s both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fu-pattern {
+    font-size: 60px;
+    color: var(--gold);
+    opacity: 0.3;
+    font-weight: bold;
+    margin-bottom: 10px;
+    animation: fuFloat 3s ease-in-out infinite;
+}
+
+@keyframes fuFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.bank-name {
+    font-size: 14px;
+    color: var(--light-gold);
+    opacity: 0.8;
+    letter-spacing: 3px;
+}
+
+/* ========== 祝福展示页面 ========== */
+#blessingPage {
+    background: linear-gradient(180deg, var(--primary-red) 0%, var(--deep-red) 100%);
+}
+
+.blessing-content {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* 背景装饰 */
+.bg-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.05;
+}
+
+.circle-1 {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    right: -100px;
+}
+
+.circle-2 {
+    width: 200px;
+    height: 200px;
+    bottom: 20%;
+    left: -50px;
+}
+
+.circle-3 {
+    width: 150px;
+    height: 150px;
+    bottom: -50px;
+    right: 10%;
+}
+
+/* 顶部徽章 */
+.blessing-header {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    animation: fadeInDown 0.6s ease;
+}
+
+.year-badge {
+    display: inline-block;
+    background: rgba(255, 215, 0, 0.2);
+    border: 1px solid var(--gold);
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 2px;
+}
+
+/* 称呼区域 */
+.greeting-section {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: fadeIn 0.6s ease 0.2s both;
+}
+
+.greeting-text {
+    font-size: 20px;
+    color: var(--white);
+    letter-spacing: 2px;
+}
+
+.highlight-name {
+    color: var(--gold);
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* 祝福卡片 */
+.main-blessing {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    animation: scaleIn 0.8s ease 0.4s both;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.blessing-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 4px;
+    width: 100%;
+    max-width: 340px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.card-border {
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 30px 25px;
+    text-align: center;
+    position: relative;
+}
+
+.fu-icon {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--gold) 0%, #FFA500 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: var(--deep-red);
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.blessing-text {
+    margin-top: 15px;
+}
+
+.blessing-text p {
+    font-size: 20px;
+    color: var(--deep-red);
+    line-height: 2.2;
+    letter-spacing: 3px;
+    font-weight: 500;
+}
+
+/* 落款区域 */
+.signature-section {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: fadeInUp 0.6s ease 0.6s both;
+}
+
+.divider {
+    color: var(--gold);
+    opacity: 0.5;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.signature-name {
+    font-size: 18px;
+    color: var(--white);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.signature-name span {
+    color: var(--gold);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.bank-signature {
+    font-size: 14px;
+    color: var(--light-gold);
+    opacity: 0.8;
+    letter-spacing: 3px;
+}
+
+/* 按钮区域 */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    animation: fadeInUp 0.6s ease 0.8s both;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+}
+
+.btn-replay {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-replay:active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0.98);
+}
+
+.btn-share {
+    background: linear-gradient(135deg, var(--gold) 0%, #FFA500 100%);
+    color: var(--deep-red);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.btn-share:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+}
+
+/* 提示消息 */
+.toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.toast.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* ========== 响应式适配 ========== */
+@media (max-height: 700px) {
+    .header-section {
+        margin-top: 40px;
+        margin-bottom: 30px;
+    }
+    
+    .main-title {
+        font-size: 32px;
+    }
+    
+    .form-section {
+        padding: 25px 20px;
+    }
+    
+    .blessing-header {
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    
+    .main-blessing {
+        margin-bottom: 20px;
+    }
+    
+    .blessing-text p {
+        font-size: 18px;
+        line-height: 2;
+    }
+}
+
+@media (max-height: 600px) {
+    .input-content {
+        padding: 15px;
+    }
+    
+    .header-section {
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    
+    .main-title {
+        font-size: 28px;
+    }
+    
+    .form-section {
+        padding: 20px;
+        margin: 0 5px 20px;
+    }
+    
+    .input-group {
+        margin-bottom: 20px;
+    }
+    
+    .input-group input {
+        padding: 12px 15px;
+    }
+    
+    .start-btn {
+        padding: 15px;
+    }
+    
+    .blessing-content {
+        padding: 15px;
+    }
+    
+    .greeting-text {
+        font-size: 18px;
+    }
+    
+    .highlight-name {
+        font-size: 24px;
+    }
+    
+    .card-border {
+        padding: 25px 20px;
+    }
+    
+    .blessing-text p {
+        font-size: 16px;
+    }
+}
+
+/* 横屏适配 */
+@media (orientation: landscape) and (max-height: 500px) {
+    .input-content {
+        min-height: auto;
+        padding: 15px;
+    }
+    
+    .header-section {
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .main-title {
+        font-size: 24px;
+    }
+    
+    .form-section {
+        padding: 20px;
+        margin: 0 20px 20px;
+    }
+    
+    .input-group {
+        margin-bottom: 15px;
+    }
+    
+    .bottom-decoration {
+        padding-bottom: 15px;
+    }
+    
+    .fu-pattern {
+        font-size: 40px;
+    }
+    
+    .blessing-content {
+        min-height: auto;
+    }
+    
+    .blessing-header {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .main-blessing {
+        margin-bottom: 15px;
+    }
+    
+    .blessing-card {
+        max-width: 400px;
+    }
+    
+    .action-buttons {
+        margin-bottom: 15px;
+    }
+}
+
+/* 安全区域适配（iPhone X+） */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .input-content,
+    .blessing-content {
+        padding-top: calc(20px + env(safe-area-inset-top));
+        padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    }
+}
+
+/* 动画性能优化 */
+.page,
+.header-section,
+.form-section,
+.blessing-card,
+.action-buttons {
+    will-change: transform, opacity;
+}
+
+/* 禁用文本选择 */
+body {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+input {
+    user-select: text;
+    -webkit-user-select: text;
+}

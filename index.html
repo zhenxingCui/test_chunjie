@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>马年拜年祝福</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 音频控制 -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=chinese-new-year-111539.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 输入页面 -->
+    <section id="inputPage" class="page page-active">
+        <div class="input-content">
+            <!-- 顶部装饰 -->
+            <div class="top-pattern">
+                <svg viewBox="0 0 375 120" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 80 Q93 40 187 60 T375 50" stroke="#FFD700" stroke-width="1" fill="none" opacity="0.5"/>
+                    <circle cx="50" cy="50" r="30" fill="#FFD700" opacity="0.1"/>
+                    <circle cx="320" cy="70" r="40" fill="#FFD700" opacity="0.1"/>
+                </svg>
+            </div>
+            
+            <!-- 标题 -->
+            <div class="header-section">
+                <h1 class="main-title">🐴 马年拜年</h1>
+                <p class="subtitle">新春祝福定制</p>
+            </div>
+            
+            <!-- 输入表单 -->
+            <div class="form-section">
+                <div class="input-group">
+                    <label>您的姓名（拜年人）</label>
+                    <input type="text" id="senderNameInput" placeholder="请输入您的姓名" maxlength="4" value="尉明阳">
+                </div>
+                
+                <div class="input-group">
+                    <label>对方姓名（被拜年人）</label>
+                    <input type="text" id="receiverNameInput" placeholder="请输入对方姓名" maxlength="4" value="领导">
+                </div>
+                
+                <button id="startBtn" class="start-btn">
+                    <span>生成祝福</span>
+                </button>
+            </div>
+            
+            <!-- 底部装饰 -->
+            <div class="bottom-decoration">
+                <div class="fu-pattern">福</div>
+                <p class="bank-name">中国工商银行</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 祝福展示页面 -->
+    <section id="blessingPage" class="page">
+        <div class="blessing-content">
+            <!-- 背景装饰 -->
+            <div class="bg-pattern">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+            </div>
+            
+            <!-- 顶部 -->
+            <div class="blessing-header">
+                <div class="year-badge">🐴 马年大吉</div>
+            </div>
+            
+            <!-- 称呼区域 -->
+            <div class="greeting-section">
+                <p class="greeting-text">尊敬的 <span id="displayReceiver" class="highlight-name">领导</span></p>
+            </div>
+            
+            <!-- 主祝福内容 -->
+            <div class="main-blessing">
+                <div class="blessing-card">
+                    <div class="card-border">
+                        <div class="fu-icon">福</div>
+                        <div class="blessing-text">
+                            <p>马年纳福，笃行致远</p>
+                            <p>新春安康，事业顺遂</p>
+                            <p>阖家幸福，万事胜意</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 落款 -->
+            <div class="signature-section">
+                <div class="divider">
+                    <span>✦</span>
+                </div>
+                <p class="signature-name"><span id="displaySender">尉明阳</span> 敬上</p>
+                <p class="bank-signature">中国工商银行</p>
+            </div>
+            
+            <!-- 按钮区域 -->
+            <div class="action-buttons">
+                <button id="replayBtn" class="action-btn btn-replay">
+                    <span>↻ 重新制作</span>
+                </button>
+                <button id="shareBtn" class="action-btn btn-share">
+                    <span>➤ 发送祝福</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 提示消息 -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
