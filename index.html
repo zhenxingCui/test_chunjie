@@ -1,118 +1,7754 @@
+<!-- 张璐璐 2026-04-27 -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>马年拜年祝福</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数智能力考试刷题系统(570题完整版)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .question-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #409eff;
+        }
+        
+        .question-type {
+            background: #e8f3ff;
+            color: #409eff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .question-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .options-container {
+            margin-bottom: 30px;
+        }
+        
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+        }
+        
+        .option-item:hover {
+            background-color: #f8f9fa;
+            border-color: #409eff;
+        }
+        
+        .option-item.selected {
+            background-color: #e8f3ff;
+            border-color: #409eff;
+        }
+        
+        .option-item.correct {
+            background-color: #e6ffed;
+            border-color: #00b42a;
+        }
+        
+        .option-item.wrong {
+            background-color: #fff1f0;
+            border-color: #ff4d4f;
+        }
+        
+        .option-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #f5f7fa;
+            color: #666;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .option-text {
+            flex: 1;
+            color: #333;
+        }
+        
+        .answer-area {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .answer-correct {
+            background-color: #e6ffed;
+            color: #00b42a;
+            border: 1px solid #bff6e0;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background-color: #409eff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #338eef;
+        }
+        
+        .btn-success {
+            background-color: #00b42a;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #00a026;
+        }
+        
+        .btn-nav {
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .progress {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .question-grid-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            background: white;
+            color: #344054;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .question-grid-toggle:hover {
+            border-color: #409eff;
+            color: #409eff;
+        }
+
+        .question-grid-toggle .arrow {
+            transition: transform 0.2s;
+            font-size: 12px;
+        }
+
+        .question-grid-toggle .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .question-grid-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .question-grid-panel.open {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+            gap: 6px;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border: 1px solid #e1e4e8;
+        }
+
+        .question-grid-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 36px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid #e1e4e8;
+            background: white;
+            color: #344054;
+        }
+
+        .question-grid-item:hover {
+            border-color: #409eff;
+            color: #409eff;
+        }
+
+        .question-grid-item.current {
+            background: #409eff;
+            color: white;
+            border-color: #409eff;
+            font-weight: bold;
+        }
+
+        .question-grid-item.answered {
+            background: #e6ffed;
+            border-color: #00b42a;
+            color: #00b42a;
+        }
+
+        .question-grid-item.wrong {
+            background: #fff1f0;
+            border-color: #ff4d4f;
+            color: #ff4d4f;
+        }
+
+        .question-grid-item.answered.current {
+            background: #409eff;
+            color: white;
+            border-color: #409eff;
+        }
+
+        .question-grid-item.wrong.current {
+            background: #409eff;
+            color: white;
+            border-color: #409eff;
+        }
+
+        .question-grid-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .question-grid-panel::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .btn-favorite {
+            background-color: #ff9500;
+            color: white;
+        }
+
+        .btn-favorite:hover {
+            background-color: #e68900;
+        }
+
+        .btn-wrong {
+            background-color: #ff4d4f;
+            color: white;
+        }
+
+        .btn-wrong:hover {
+            background-color: #e64545;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .modal-close {
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            line-height: 1;
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+        }
+
+        .fav-item, .wrong-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .fav-item:hover, .wrong-item:hover {
+            background: #f8f9fa;
+        }
+
+        .fav-item:last-child, .wrong-item:last-child {
+            border-bottom: none;
+        }
+
+        .fav-item-num, .wrong-item-num {
+            font-weight: bold;
+            color: #409eff;
+            margin-right: 10px;
+        }
+
+        .fav-item-title, .wrong-item-title {
+            color: #333;
+        }
+
+        .favorite-icon {
+            margin-right: 5px;
+        }
+
+        .drop-zone {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            color: #999;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .drop-zone.dragover {
+            border-color: #409eff;
+            background-color: #e8f3ff;
+            color: #409eff;
+        }
+
+        .drop-zone.drag-success {
+            border-color: #00b42a;
+            background-color: #e6ffed;
+            color: #00b42a;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .question-title {
+                font-size: 16px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+
+            .question-grid {
+                grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+                gap: 4px;
+                padding: 10px;
+            }
+
+            .question-grid-item {
+                width: 40px;
+                height: 32px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- 音频控制 -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=chinese-new-year-111539.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- 输入页面 -->
-    <section id="inputPage" class="page page-active">
-        <div class="input-content">
-            <!-- 顶部装饰 -->
-            <div class="top-pattern">
-                <svg viewBox="0 0 375 120" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 80 Q93 40 187 60 T375 50" stroke="#FFD700" stroke-width="1" fill="none" opacity="0.5"/>
-                    <circle cx="50" cy="50" r="30" fill="#FFD700" opacity="0.1"/>
-                    <circle cx="320" cy="70" r="40" fill="#FFD700" opacity="0.1"/>
-                </svg>
-            </div>
-            
-            <!-- 标题 -->
-            <div class="header-section">
-                <h1 class="main-title">🐴 马年拜年</h1>
-                <p class="subtitle">新春祝福定制</p>
-            </div>
-            
-            <!-- 输入表单 -->
-            <div class="form-section">
-                <div class="input-group">
-                    <label>您的姓名（拜年人）</label>
-                    <input type="text" id="senderNameInput" placeholder="请输入您的姓名" maxlength="4" value="尉明阳">
-                </div>
-                
-                <div class="input-group">
-                    <label>对方姓名（被拜年人）</label>
-                    <input type="text" id="receiverNameInput" placeholder="请输入对方姓名" maxlength="4" value="领导">
-                </div>
-                
-                <button id="startBtn" class="start-btn">
-                    <span>生成祝福</span>
+    <div class="header">
+        <h1>数智能力考试刷题系统</h1>
+        <p>完整版570道试题 | 随时随地刷题</p>
+    </div>
+    
+    <div class="container">
+        <div class="drop-zone" id="dropZone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+            <p>📁 将刷题数据 JSON 文件拖到这里快速导入</p>
+        </div>
+        
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
+            <div style="display:flex;align-items:center;gap:15px;">
+                <button class="question-grid-toggle" onclick="toggleQuestionGrid()">
+                    <span>题目列表</span>
+                    <span class="arrow" id="gridArrow">▼</span>
                 </button>
+                <div style="font-size:12px;color:#666;display:flex;gap:12px;">
+                    <span><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#e6ffed;border:1px solid #00b42a;margin-right:4px;"></span>已答对</span>
+                    <span><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#fff1f0;border:1px solid #ff4d4f;margin-right:4px;"></span>答错</span>
+                    <span><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#409eff;margin-right:4px;"></span>当前</span>
+                </div>
             </div>
-            
-            <!-- 底部装饰 -->
-            <div class="bottom-decoration">
-                <div class="fu-pattern">福</div>
-                <p class="bank-name">中国工商银行</p>
+            <div style="display:flex;gap:10px;">
+                <button class="btn btn-favorite" onclick="showFavorites()">
+                    <span class="favorite-icon">★</span>收藏 (0)
+                </button>
+                <button class="btn btn-wrong" onclick="showWrongQuestions()">
+                    <span>✗</span>错题 (0)
+                </button>
+                <button class="btn btn-primary" onclick="exportData()">
+                    <span>📥</span>导出数据
+                </button>
+                <label class="btn btn-primary" style="cursor:pointer;">
+                    <span>📤</span>导入数据
+                    <input type="file" accept=".json" onchange="importData(event)" style="display:none;">
+                </label>
+            </div>
+            <span id="answeredCount" style="font-size:13px;color:#666;">已答: 0/570</span>
+        </div>
+        <div class="question-grid-panel" id="questionGridPanel">
+            <div class="question-grid" id="questionGrid"></div>
+        </div>
+
+        <div class="question-header">
+            <div class="question-number" id="questionNum">第1题</div>
+        </div>
+        
+        <div class="question-title" id="questionTitle">
+            <span class="question-type" id="questionType">单选</span>
+            <span id="questionTitleText"></span>
+        </div>
+        
+        <div class="options-container" id="optionsContainer"></div>
+        
+        <div class="btn-group">
+            <button class="btn btn-success" onclick="showAnswer()" id="showAnswerBtn">查看正确答案</button>
+            <button class="btn btn-success" onclick="confirmAnswer()" id="confirmAnswerBtn" style="display:none;">确认答案</button>
+            <button class="btn btn-primary" onclick="clearSelection()">重新选择</button>
+            <button class="btn btn-favorite" id="favoriteBtn" onclick="toggleFavorite()">
+                <span class="favorite-icon">☆</span>收藏本题
+            </button>
+        </div>
+        
+        <div class="answer-area" id="answerArea"></div>
+        
+        <div class="navigation">
+            <button class="btn btn-primary btn-nav" onclick="prevQuestion()">上一题</button>
+            <button class="btn btn-primary btn-nav" onclick="nextQuestion()">下一题</button>
+        </div>
+        
+        <div class="progress" id="progress"></div>
+    </div>
+
+    <!-- 收藏题目模态框 -->
+    <div class="modal-overlay" id="favoriteModal" onclick="closeModal('favoriteModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-title">★ 收藏的题目</div>
+                <span class="modal-close" onclick="closeModal('favoriteModal')">×</span>
+            </div>
+            <div class="modal-body" id="favoriteList">
+                <div class="empty-state">暂无收藏的题目</div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- 祝福展示页面 -->
-    <section id="blessingPage" class="page">
-        <div class="blessing-content">
-            <!-- 背景装饰 -->
-            <div class="bg-pattern">
-                <div class="circle circle-1"></div>
-                <div class="circle circle-2"></div>
-                <div class="circle circle-3"></div>
+    <!-- 错题模态框 -->
+    <div class="modal-overlay" id="wrongModal" onclick="closeModal('wrongModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-title">✗ 错题本</div>
+                <span class="modal-close" onclick="closeModal('wrongModal')">×</span>
             </div>
-            
-            <!-- 顶部 -->
-            <div class="blessing-header">
-                <div class="year-badge">🐴 马年大吉</div>
-            </div>
-            
-            <!-- 称呼区域 -->
-            <div class="greeting-section">
-                <p class="greeting-text">尊敬的 <span id="displayReceiver" class="highlight-name">领导</span></p>
-            </div>
-            
-            <!-- 主祝福内容 -->
-            <div class="main-blessing">
-                <div class="blessing-card">
-                    <div class="card-border">
-                        <div class="fu-icon">福</div>
-                        <div class="blessing-text">
-                            <p>马年纳福，笃行致远</p>
-                            <p>新春安康，事业顺遂</p>
-                            <p>阖家幸福，万事胜意</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 落款 -->
-            <div class="signature-section">
-                <div class="divider">
-                    <span>✦</span>
-                </div>
-                <p class="signature-name"><span id="displaySender">尉明阳</span> 敬上</p>
-                <p class="bank-signature">中国工商银行</p>
-            </div>
-            
-            <!-- 按钮区域 -->
-            <div class="action-buttons">
-                <button id="replayBtn" class="action-btn btn-replay">
-                    <span>↻ 重新制作</span>
-                </button>
-                <button id="shareBtn" class="action-btn btn-share">
-                    <span>➤ 发送祝福</span>
-                </button>
+            <div class="modal-body" id="wrongList">
+                <div class="empty-state">暂无错题记录</div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- 提示消息 -->
-    <div id="toast" class="toast"></div>
+    <script>
+        // 完整题库数据(570题)
+        let questions = [
+    {
+        "id": 1,
+        "title": "以下哪项不属于SOLID原则？",
+        "type": "单选",
+        "options": [
+            "单一职责原则",
+            "开闭原则",
+            "高内聚低耦合原则",
+            "依赖倒置原则"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 2,
+        "title": "微服务架构中，服务间通信常用的轻量级协议是？",
+        "type": "单选",
+        "options": [
+            "FTP",
+            "HTTP/REST",
+            "SMTP",
+            "SNMP"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 3,
+        "title": "下列哪种软件架构模式最适合用于实现松耦合、可扩展的分布式系统？",
+        "type": "单选",
+        "options": [
+            "单体架构",
+            "分层架构",
+            "微服务架构",
+            "管道-过滤器架构"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 4,
+        "title": "软件架构设计的核心目标不包括",
+        "type": "单选",
+        "options": [
+            "满足功能性需求",
+            "提升系统性能",
+            "降低开发成本",
+            "仅关注代码编写规范"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 5,
+        "title": "分层架构中，负责处理用户交互、展示数据的是哪一层？",
+        "type": "单选",
+        "options": [
+            "业务逻辑层",
+            "数据访问层",
+            "表示层",
+            "基础设施层"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 6,
+        "title": "下列关于RESTful API的描述，错误的是",
+        "type": "单选",
+        "options": [
+            "基于HTTP协议",
+            "采用无状态设计",
+            "必须使用JSON格式传输数据",
+            "支持CRUD操作映射到HTTP方法"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 7,
+        "title": "微服务架构中，服务之间的通信方式不包括",
+        "type": "单选",
+        "options": [
+            "同步REST调用",
+            "异步消息队列",
+            "数据库共享",
+            "gRPC调用"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 8,
+        "title": "分层架构的主要优点是",
+        "type": "单选",
+        "options": [
+            "完全消除耦合",
+            "职责清晰，便于维护和扩展",
+            "适合大规模分布式部署",
+            "部署成本低"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 9,
+        "title": "下列关于领域驱动设计（DDD）的描述，正确的是",
+        "type": "单选",
+        "options": [
+            "仅关注数据库设计",
+            "核心是将业务领域模型映射到架构设计",
+            "不适合复杂业务系统",
+            "与微服务架构完全无关"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 10,
+        "title": "软件架构设计中，\"高内聚、低耦合\"的含义是",
+        "type": "单选",
+        "options": [
+            "组件内部功能紧密相关，组件之间依赖尽可能少",
+            "组件内部功能分散，组件之间依赖尽可能多",
+            "组件内部功能紧密相关，组件之间依赖尽可能多",
+            "组件内部功能分散，组件之间依赖尽可能少"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 11,
+        "title": "下列哪种架构模式适用于需要快速响应外部事件，如实时通知、监控系统？",
+        "type": "单选",
+        "options": [
+            "分层架构",
+            "事件驱动架构",
+            "单体架构",
+            "微内核架构"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 12,
+        "title": "关于微内核架构，下列说法错误的是",
+        "type": "单选",
+        "options": [
+            "核心是微内核，负责提供基础服务",
+            "扩展功能通过插件形式实现",
+            "微内核体积大，功能完善",
+            "便于扩展和维护"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 13,
+        "title": "软件架构设计的流程顺序正确的是",
+        "type": "单选",
+        "options": [
+            "需求分析 → 架构设计 → 架构评审 → 架构实现 → 架构迭代",
+            "架构设计 → 需求分析 → 架构评审 → 架构实现 → 架构迭代",
+            "需求分析 → 架构评审 → 架构设计 → 架构实现 → 架构迭代",
+            "架构设计 → 架构实现 → 需求分析 → 架构评审 → 架构迭代"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 14,
+        "title": "软件架构视图中，用于描述系统硬件部署和组件分布的是",
+        "type": "单选",
+        "options": [
+            "逻辑视图",
+            "物理视图",
+            "开发视图",
+            "运行视图"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 15,
+        "title": "软件架构的可扩展性是指",
+        "type": "单选",
+        "options": [
+            "系统抵御故障的能力",
+            "系统适应业务需求变化的能力",
+            "系统正常运行的时间比例",
+            "系统被测试的难易程度"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 16,
+        "title": "下列关于分布式事务的描述，正确的是",
+        "type": "单选",
+        "options": [
+            "分布式事务无需保证数据一致性",
+            "两阶段提交（2PC）是分布式事务的常用解决方案",
+            "分布式事务只能通过数据库实现",
+            "分布式事务不会出现数据不一致问题"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 17,
+        "title": "分层架构中，业务逻辑层的主要职责是",
+        "type": "单选",
+        "options": [
+            "展示数据给用户",
+            "与数据库交互",
+            "处理核心业务规则和逻辑",
+            "提供日志、缓存服务"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 18,
+        "title": "下列哪种架构模式属于\"去中心化\"架构？",
+        "type": "单选",
+        "options": [
+            "微服务架构",
+            "单体架构",
+            "客户端-服务器架构",
+            "主从架构"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 19,
+        "title": "软件架构评审的主要目的是",
+        "type": "单选",
+        "options": [
+            "检查代码是否规范",
+            "检查架构是否满足需求、是否合理可行",
+            "测试系统性能",
+            "确定开发团队分工"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 20,
+        "title": "关于缓存技术在软件架构中的作用，说法错误的是",
+        "type": "单选",
+        "options": [
+            "提高系统响应速度",
+            "减少数据库压力",
+            "降低系统可用性",
+            "缓存热点数据"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 21,
+        "title": "下列哪种不属于微服务架构的优点？",
+        "type": "单选",
+        "options": [
+            "可独立扩展",
+            "技术栈灵活",
+            "部署复杂",
+            "故障隔离"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 22,
+        "title": "软件架构设计中，接口设计的核心原则是",
+        "type": "单选",
+        "options": [
+            "接口越多越好",
+            "接口尽量简洁、稳定，减少耦合",
+            "接口无需文档",
+            "接口可随意修改"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 23,
+        "title": "分层架构中，层与层之间的交互原则是",
+        "type": "单选",
+        "options": [
+            "可跨层直接交互",
+            "只能自上而下或自下而上单向交互",
+            "无需交互",
+            "可随意交互"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 24,
+        "title": "软件架构的可靠性是指",
+        "type": "单选",
+        "options": [
+            "系统处理请求的速度",
+            "系统抵御故障、持续正常运行的能力",
+            "系统适应需求变化的能力",
+            "系统被攻击的难易程度"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 25,
+        "title": "软件架构设计中，\"熔断机制\"的作用是",
+        "type": "单选",
+        "options": [
+            "防止单个服务故障扩散，保护系统整体稳定性",
+            "提高系统的响应速度",
+            "增加系统的并发量",
+            "简化接口设计"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 26,
+        "title": "关于软件架构文档的作用，说法错误的是",
+        "type": "单选",
+        "options": [
+            "便于团队成员理解架构设计",
+            "为开发、测试、运维提供指导",
+            "无需更新，一次编写即可",
+            "便于架构评审和迭代"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 27,
+        "title": "软件架构的安全性是指",
+        "type": "单选",
+        "options": [
+            "系统正常运行的时间比例",
+            "系统防止未授权访问、数据泄露的能力",
+            "系统处理请求的速度",
+            "系统适应需求变化的能力"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 28,
+        "title": "下列关于微服务拆分的原则，说法正确的是",
+        "type": "单选",
+        "options": [
+            "拆分越细越好",
+            "按技术栈拆分",
+            "按业务领域边界拆分",
+            "所有服务共享一个数据库"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 29,
+        "title": "项目投入产出效益比评估时，应优先考量？",
+        "type": "单选",
+        "options": [
+            "技术复杂度",
+            "业务价值与资源消耗的匹配度",
+            "开发团队规模",
+            "代码行数"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 30,
+        "title": "数据架构中，\"分库分表\"策略主要解决？",
+        "type": "单选",
+        "options": [
+            "单表数据量过大导致的性能瓶颈",
+            "数据库连接数不足",
+            "事务一致性要求",
+            "备份恢复效率"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 31,
+        "title": "共享数据能力的核心体现是？",
+        "type": "单选",
+        "options": [
+            "统一数据标准与共享机制",
+            "统一开发语言",
+            "统一界面风格",
+            "统一部署环境"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 32,
+        "title": "架构设计中，\"最终一致性\"适用于？",
+        "type": "单选",
+        "options": [
+            "金融转账等强一致性场景",
+            "社交点赞、缓存更新等可容忍短暂不一致场景",
+            "库存扣减等实时性要求高场景",
+            "身份认证等安全敏感场景"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 33,
+        "title": "微服务拆分时，\"数据库私有化\"原则的主要目的是？",
+        "type": "单选",
+        "options": [
+            "提升查询性能",
+            "避免服务间通过数据库强耦合",
+            "减少存储成本",
+            "简化备份策略"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 34,
+        "title": "架构设计复用能力时，应首先？",
+        "type": "单选",
+        "options": [
+            "评估技术先进性",
+            "检索能力目录，避免重复造轮子",
+            "对比开源方案",
+            "征求开发团队意见"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 35,
+        "title": "项目立项时，能力评估的正确顺序是？",
+        "type": "单选",
+        "options": [
+            "投入产出→系统图谱→重复建设",
+            "系统图谱→重复建设→投入产出",
+            "重复建设→技术选型→投入产出",
+            "业务需求→技术实现→运维保障"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 36,
+        "title": "架构设计中，\"缓存穿透\"的常见解决方案是？",
+        "type": "单选",
+        "options": [
+            "增加缓存容量",
+            "对不存在的数据也缓存空值或使用布隆过滤器",
+            "缩短缓存过期时间",
+            "改用同步查询"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 37,
+        "title": "架构设计避免重复建设的关键动作是？",
+        "type": "单选",
+        "options": [
+            "优先选择开源方案",
+            "检索能力目录，复用已有服务",
+            "采用最新技术栈",
+            "增加开发人力"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 38,
+        "title": "接入外部AI模型时，应优先？",
+        "type": "单选",
+        "options": [
+            "直接部署到生产环境",
+            "通过平台标准接口进行服务化封装与测试",
+            "修改模型源码适配业务",
+            "独立部署绕过平台"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 39,
+        "title": "微服务架构中，\"配置中心\"的核心价值是？",
+        "type": "单选",
+        "options": [
+            "替代数据库",
+            "实现配置动态更新与环境隔离，提升运维效率",
+            "提升代码执行速度",
+            "简化服务发现"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 40,
+        "title": "数据架构中，\"数据脱敏\"主要应用于？",
+        "type": "单选",
+        "options": [
+            "开发测试环境，保护生产数据隐私",
+            "提升查询性能",
+            "减少存储空间",
+            "简化备份流程"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 41,
+        "title": "微服务架构中，\"分布式事务\"的Saga模式核心思想是？",
+        "type": "单选",
+        "options": [
+            "两阶段提交保证强一致性",
+            "将长事务拆分为本地事务+补偿操作，实现最终一致性",
+            "依赖数据库全局锁",
+            "通过消息队列同步执行"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 42,
+        "title": "当业务需求与平台现有能力存在差距时，首选方案是？",
+        "type": "单选",
+        "options": [
+            "自行开发替代方案",
+            "评估差距，通过平台扩展机制或能力迭代申请解决",
+            "降低业务需求",
+            "等待平台自然演进"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 43,
+        "title": "项目全生命周期中，\"能力评估\"应贯穿？",
+        "type": "单选",
+        "options": [
+            "仅立项阶段",
+            "立项、设计、实施、运维各阶段",
+            "仅验收阶段",
+            "仅规划阶段"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 44,
+        "title": "以下哪些是微服务架构的核心特征？",
+        "type": "多选",
+        "options": [
+            "服务独立部署",
+            "轻量级通信机制",
+            "去中心化治理",
+            "数据库共享复用"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 45,
+        "title": "微服务架构的优势包括？",
+        "type": "多选",
+        "options": [
+            "服务独立部署",
+            "技术栈灵活选型",
+            "故障隔离",
+            "天然保证分布式事务一致性"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 46,
+        "title": "接入AI应用时，需遵循？",
+        "type": "多选",
+        "options": [
+            "统一的服务化封装标准",
+            "算力资源申请流程",
+            "模型效果验收规范",
+            "可绕过平台直接部署"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 47,
+        "title": "架构设计可随意选择技术栈，无需考虑平台规范。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "×"
+    },
+    {
+        "id": 48,
+        "title": "微服务架构中，每个服务应拥有独立的数据库。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "√"
+    },
+    {
+        "id": 49,
+        "title": "能力评估仅需在项目立项时回答一次。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "×"
+    },
+    {
+        "id": 50,
+        "title": "数据架构中，\"读写分离\"可完全替代\"分库分表\"解决性能问题。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "×"
+    },
+    {
+        "id": 51,
+        "title": "微服务架构使用分布式事务可以完全达到和单体应用一样的强一致性。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "×"
+    },
+    {
+        "id": 52,
+        "title": "Docker镜像的构建文件默认名称是？",
+        "type": "单选",
+        "options": [
+            "docker.yaml",
+            "Dockerfile",
+            "container.conf",
+            "image.json"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 53,
+        "title": "以下哪项是容器技术相比虚拟机的核心优势？",
+        "type": "单选",
+        "options": [
+            "更强的隔离性",
+            "更小的资源开销和更快的启动速度",
+            "支持更多操作系统",
+            "无需宿主机内核支持"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 54,
+        "title": "以下哪个是Docker的官方镜像仓库？",
+        "type": "单选",
+        "options": [
+            "GitHub",
+            "Docker Hub",
+            "Maven中央仓库",
+            "PyPI"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 55,
+        "title": "关于容器化技术（如Docker）与软件架构的关系，说法正确的是（ ）",
+        "type": "单选",
+        "options": [
+            "容器化仅适用于单体架构",
+            "容器化可以简化微服务的部署和运维",
+            "容器化会增加架构的复杂度",
+            "容器化与架构设计无关"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 56,
+        "title": "Docker镜像安全扫描主要检测？",
+        "type": "单选",
+        "options": [
+            "镜像体积大小",
+            "基础镜像漏洞、敏感信息泄露等风险",
+            "构建时间长短",
+            "标签命名规范"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 57,
+        "title": "容器相比传统虚拟机，以下哪个是它的优势？",
+        "type": "单选",
+        "options": [
+            "启动速度更快",
+            "隔离性更强",
+            "安全性更高",
+            "需要独立的操作系统"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 58,
+        "title": "容器安全最佳实践包括？",
+        "type": "多选",
+        "options": [
+            "使用非root用户运行容器",
+            "定期扫描镜像漏洞",
+            "最小化镜像基础层",
+            "容器内安装完整开发工具"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 59,
+        "title": "Docker镜像一旦构建完成，内容不可修改。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 60,
+        "title": "容器化部署时，建议使用非root用户运行容器，以提升安全性。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 61,
+        "title": "在系统开发中，为了隐藏模块的内部实现细节，对外仅暴露稳定的调用接口，从而降低外部调用和维护的复杂性。这主要应用了面向对象的哪种核心机制？",
+        "type": "单选",
+        "options": [
+            "封装",
+            "继承",
+            "多态",
+            "抽象"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 62,
+        "title": "在开发计费系统时，若需增加新的“物联网专网套餐”计费需求，开发人员应尽量在不修改原有稳定计费代码的基础上进行扩展。这遵循了以下哪种设计原则？",
+        "type": "单选",
+        "options": [
+            "单一职责原则",
+            "接口隔离原则",
+            "开放封闭原则（OCP）",
+            "迪米特法则"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 63,
+        "title": "如果一个类被迫实现了它不需要的方法，会增加系统的冗余依赖。为了避免这种情况，应该使用多个专门的接口，而不是单一的“万能”接口。这属于什么原则？",
+        "type": "单选",
+        "options": [
+            "依赖倒转原则",
+            "接口隔离原则（ISP）",
+            "开闭原则",
+            "里氏代换原则"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 64,
+        "title": "手机品牌与手机操作系统是两个可能独立变化的维度。为了应对这种多维度的变化，将抽象部分与实现部分分离，使它们都能独立演进，应采用什么模式？",
+        "type": "单选",
+        "options": [
+            "组合模式",
+            "桥接模式",
+            "外观模式",
+            "享元模式"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 65,
+        "title": "将一个请求封装为一个对象，从而支持对请求进行排队、记录日志以及可撤销操作。这是哪种设计模式的特性？",
+        "type": "单选",
+        "options": [
+            "命令模式",
+            "观察者模式",
+            "备忘录模式",
+            "策略模式"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 66,
+        "title": "“允许运行时动态替换子类对象，是设计模式中实现灵活扩展的最核心机制”，这句话解释了面向对象的哪一特性？",
+        "type": "单选",
+        "options": [
+            "继承",
+            "封装",
+            "多态",
+            "抽象工厂"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 67,
+        "title": "对于一个内部结构复杂、组装顺序要求严格的“5G政企专线订单”对象，为了使其构建过程精细化且流程固定，最适合采用哪种模式？",
+        "type": "单选",
+        "options": [
+            "简单工厂模式",
+            "抽象工厂模式",
+            "建造者模式",
+            "桥接模式"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 68,
+        "title": "在复杂系统中，如果将抽象部分与实现部分分离，使它们都可以独立地变化，从而应对多维度变化时的解耦（如不同品牌手机与不同操作系统的独立演进）。这应用了哪种模式？",
+        "type": "单选",
+        "options": [
+            "适配器模式",
+            "桥接模式",
+            "组合模式",
+            "外观模式"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 69,
+        "title": "定义一对多的依赖关系，当对象状态改变时自动通知所有依赖者。这种实现触发机制与执行机制解耦的模式是：",
+        "type": "单选",
+        "options": [
+            "观察者模式",
+            "策略模式",
+            "代理模式",
+            "责任链模式"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 70,
+        "title": "在运维中，为了实现对核心业务数据操作的撤销或恢复功能，需要在不破坏封装性的前提下捕获并保存对象的内部状态。这最适合使用：",
+        "type": "单选",
+        "options": [
+            "备忘录模式",
+            "状态模式",
+            "命令模式",
+            "原型模式"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 71,
+        "title": "面向对象的核心机制中，隐藏内部实现细节，对外暴露稳定接口的作用是：",
+        "type": "单选",
+        "options": [
+            "实现多态",
+            "降低外部调用和维护的复杂性",
+            "复用父类代码",
+            "控制状态流转"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 72,
+        "title": "同一接口不同实现，允许运行时动态替换子类对象。这一机制被称为：",
+        "type": "单选",
+        "options": [
+            "封装",
+            "继承",
+            "多态",
+            "抽象"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 73,
+        "title": "为了防止类被迫实现不需要的方法，减少冗余依赖，应当：",
+        "type": "单选",
+        "options": [
+            "使用多个专门的接口",
+            "使用单一的万能接口",
+            "减少类的数量",
+            "避免使用继承"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 74,
+        "title": "数据库连接池或配置中心等组件，在整个系统运行期间通常只需要一个实例并提供全局访问点。这应当应用：",
+        "type": "单选",
+        "options": [
+            "工厂方法模式",
+            "建造者模式",
+            "单例模式",
+            "抽象工厂模式"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 75,
+        "title": "享元模式极致优化系统内存复用的关键在于分离对象的两种状态。这两种状态是：",
+        "type": "单选",
+        "options": [
+            "内部状态与外部状态",
+            "静态状态与动态状态",
+            "全局状态与局部状态",
+            "稳定状态与可变状态"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 76,
+        "title": "备忘录模式的核心前提是：",
+        "type": "单选",
+        "options": [
+            "必须使用接口隔离",
+            "在不破坏封装性的前提下",
+            "必须结合观察者模式",
+            "必须分离内部与外部状态"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 77,
+        "title": "“高层模块不依赖底层模块，二者均依赖抽象；抽象不依赖细节。”在数智化系统中，实现依赖倒转原则（DIP）的核心技术手段通常是：",
+        "type": "单选",
+        "options": [
+            "大量使用继承",
+            "面向接口编程",
+            "使用静态工厂",
+            "使用全局变量"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 78,
+        "title": "为了让原本由于接口不兼容而不能一起工作的旧系统类，能够接入新的微服务网络，我们需要使用：",
+        "type": "单选",
+        "options": [
+            "外观模式",
+            "适配器模式",
+            "观察者模式",
+            "备忘录模式"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 79,
+        "title": "备忘录模式在实现数据撤销/恢复功能时，其最核心的前提是：",
+        "type": "单选",
+        "options": [
+            "必须分离内外部状态",
+            "不破坏封装性",
+            "必须使用接口",
+            "将请求封装为对象"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 80,
+        "title": "状态模式与策略模式类图结构相似，但意图截然不同。状态模式侧重于：",
+        "type": "单选",
+        "options": [
+            "算法的相互替换",
+            "由于内部状态变化导致的行为变化",
+            "请求的链式传递",
+            "统一复杂的接口访问"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 81,
+        "title": "责任链模式在多级审批流场景下应用广泛，其最大的优势在于：",
+        "type": "单选",
+        "options": [
+            "提升系统运行速度",
+            "避免请求发送者和接收者的耦合，支持动态配置处理节点",
+            "减少内存消耗",
+            "强制使用单例实例"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 82,
+        "title": "以下哪种模式属于行为型设计模式？",
+        "type": "单选",
+        "options": [
+            "抽象工厂模式",
+            "策略模式",
+            "适配器模式",
+            "组合模式"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 83,
+        "title": "在设计模式中，实现“在增加新需求时不改变原有稳定代码”这一目标，其核心实现手段通常是：",
+        "type": "单选",
+        "options": [
+            "使用全局变量",
+            "多层继承",
+            "抽象（面向接口编程）",
+            "模块内高耦合"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 84,
+        "title": "将复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。这是：",
+        "type": "单选",
+        "options": [
+            "建造者模式",
+            "策略模式",
+            "工厂方法模式",
+            "单例模式"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 85,
+        "title": "在系统结构组合与接口兼容方面，以下哪些模式有助于新老系统边界对接或核心能力的动态扩展？",
+        "type": "多选",
+        "options": [
+            "适配器模式",
+            "外观模式",
+            "装饰模式",
+            "状态模式"
+        ],
+        "answer": "A#B#C"
+    },
+    {
+        "id": 86,
+        "title": "以下哪些设计模式常用于“系统结构组合与接口兼容”？",
+        "type": "多选",
+        "options": [
+            "适配器模式",
+            "外观模式",
+            "装饰模式",
+            "状态模式"
+        ],
+        "answer": "A#B#C"
+    },
+    {
+        "id": 87,
+        "title": "适配器模式和外观模式的目的完全相同，都是为了屏蔽子系统内部的复杂细节并向外提供一致的界面。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 88,
+        "title": "装饰模式可以在不改变原有核心类代码的情况下动态添加职责，是替代繁琐的子类继承的一种有效手段。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 89,
+        "title": "依赖倒转原则（DIP）的核心思想是高层模块应该依赖底层模块的具体实现。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 90,
+        "title": "在享元模式中，外部状态是随环境改变而改变、不可以共享的状态，需要由客户端在调用时传入。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 91,
+        "title": "\"系统应提供一个简单易用的界面，隐藏复杂的后台操作逻辑\"——这条需求强调的是：",
+        "type": "单选",
+        "options": [
+            "系统性能",
+            "系统安全性",
+            "系统易用性和封装性",
+            "系统可维护性"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 92,
+        "title": "在软件需求管理中，跨部门合作的核心价值主要体现在：",
+        "type": "单选",
+        "options": [
+            "确保需求能够反映不同利益相关方的视角，减少需求遗漏和理解偏差",
+            "减少开发人员的编码时间",
+            "降低服务器运维成本",
+            "提高代码执行效率"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 93,
+        "title": "支持性沟通的核心特征是：",
+        "type": "单选",
+        "options": [
+            "只表达自己的观点，不考虑对方",
+            "以解决问题为导向，既表达理解，又提供建设性建议",
+            "完全赞同对方的所有说法",
+            "避免任何冲突，不说任何反对意见"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 94,
+        "title": "同理心沟通在需求管理中的核心价值是：",
+        "type": "单选",
+        "options": [
+            "让业务人员喜欢需求分析师",
+            "缩短会议时间",
+            "建立信任关系，减少沟通阻力，更准确地理解对方真实诉求",
+            "减少需求文档的页数"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 95,
+        "title": "在跨部门需求协调会上，一位参会者语速缓慢、态度温和、善于倾听、不喜欢冲突、需要时间思考，他很可能属于：",
+        "type": "单选",
+        "options": [
+            "老虎型",
+            "孔雀型",
+            "考拉型",
+            "猫头鹰型"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 96,
+        "title": "在需求细节确认过程中，遇到一位注重逻辑、喜欢数据、追求精确、提问细致的业务方，他最可能属于：",
+        "type": "单选",
+        "options": [
+            "老虎型",
+            "孔雀型",
+            "考拉型",
+            "猫头鹰型"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 97,
+        "title": "在需求评审会议中，判断会议是否\"有效\"的最核心标准是：",
+        "type": "单选",
+        "options": [
+            "会议按时开始，按时结束",
+            "参会人数达到预期",
+            "会议达成了明确的共识，产出了可执行的下一步行动",
+            "会议室环境舒适，茶歇丰富"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 98,
+        "title": "在跨部门需求协调会上，当出现团队冲突时，正确的态度是：",
+        "type": "单选",
+        "options": [
+            "冲突是坏事，必须立即压制",
+            "冲突可以完全避免，只要沟通足够好",
+            "有冲突就换人，避免麻烦",
+            "冲突是正常的，适度冲突有助于暴露问题、促进思考，关键在于如何管理"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 99,
+        "title": "在冲突处理的步骤中，第一步通常是：",
+        "type": "单选",
+        "options": [
+            "直接提出解决方案",
+            "指责对方的不配合",
+            "寻求上级裁决",
+            "识别冲突的本质和双方的立场与利益"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 100,
+        "title": "在冲突管理的五大策略中，\"妥协\"策略的适用场景是：",
+        "type": "单选",
+        "options": [
+            "双方势均力敌，需要快速达成暂时性解决方案",
+            "问题非常重要，且双方都有时间深入探讨",
+            "问题不重要，可以完全放弃",
+            "对方完全错误，必须坚持己见"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 101,
+        "title": "在软件需求分析过程中，运用4D工作法的第一步\"D1：发现（Discover）\"时，需求分析师的主要任务是：",
+        "type": "单选",
+        "options": [
+            "立即开始编写需求文档",
+            "组织开发团队进行技术选型",
+            "识别和定义需要解决的核心需求问题，明确需求现状与目标之间的差距",
+            "直接向业务部门提供解决方案"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 102,
+        "title": "在跨部门需求讨论中，运用4D工作法的\"D2：梦想（Dream）\"环节，团队应该重点关注：",
+        "type": "单选",
+        "options": [
+            "追究导致当前需求问题的责任人",
+            "畅想理想状态下系统应该是什么样子，描绘未来的业务愿景",
+            "立即分配开发任务",
+            "确定项目预算"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 103,
+        "title": "当需求团队进入4D工作法的\"D3：设计（Design）\"阶段时，核心工作是：",
+        "type": "单选",
+        "options": [
+            "确定问题的责任人",
+            "针对梦想阶段提出的愿景，讨论和设计具体的需求解决方案和实现路径",
+            "编写用户操作手册",
+            "进行代码评审"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 104,
+        "title": "在需求澄清会议结束时，团队进入4D工作法的\"D4：实现（Destiny）\"阶段，此时最重要的产出是：",
+        "type": "单选",
+        "options": [
+            "一份会议签到表",
+            "所有人的一致赞美",
+            "下个月的会议预通知",
+            "明确的行动计划、责任分工和后续跟进机制，确保需求方案落地"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 105,
+        "title": "4D工作法在软件需求管理中强调\"团队共同解决问题\"，这最直接对应的价值是：",
+        "type": "单选",
+        "options": [
+            "减少需求文档的页数",
+            "让需求分析师独立完成所有工作",
+            "通过跨部门协作，汇聚多方视角，共同定义和解决需求问题，提高需求质量",
+            "加快编码速度"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 106,
+        "title": "在需求评审会上，当开发人员对某个需求的可行性提出质疑时，作为需求管理人员，最恰当的反馈方式是：",
+        "type": "单选",
+        "options": [
+            "\"这个需求是业务部门定的，必须做\"",
+            "\"你的意见不对，听我的就行\"",
+            "忽略质疑，继续推进会议",
+            "先肯定对方的思考，然后共同探讨技术难点与业务目标的平衡方案"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 107,
+        "title": "业务部门提出的需求表述为\"系统要更智能\"。面对这种模糊表达，需求分析师在\"倾听\"后应该：",
+        "type": "单选",
+        "options": [
+            "直接记录为\"智能系统\"需求",
+            "通过追问澄清\"智能\"的具体含义，如\"智能\"是指自动化决策还是数据预测",
+            "放弃这个需求，因为太模糊",
+            "自行脑补定义"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 108,
+        "title": "需求分析师在倾听业务人员描述流程时，发现对方前后描述存在矛盾。此时应该：",
+        "type": "单选",
+        "options": [
+            "当场指出矛盾，批评对方逻辑不清",
+            "默默记录矛盾，会后不管",
+            "以提问的方式引导对方澄清矛盾，如\"刚才您提到A情况是这样处理，那如果出现B情况会怎样？\"",
+            "按照自己的理解修正矛盾"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 109,
+        "title": "当需求文档提交给业务部门确认后，业务人员反馈\"没时间细看，你们觉得行就行\"。作为需求管理人员，最恰当的反馈是：",
+        "type": "单选",
+        "options": [
+            "\"好的，那我们直接进入开发\"",
+            "向业务人员说明需求确认的重要性，争取安排时间共同评审",
+            "将反馈截图留存，作为免责证据",
+            "要求业务部门领导强制安排时间"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 110,
+        "title": "某公司的业务部门和技术部门长期存在沟通障碍，导致多个项目出现需求返工。从根源上解决这一问题，最有效的措施是：",
+        "type": "单选",
+        "options": [
+            "更换业务部门负责人",
+            "要求技术部门无条件接受所有需求",
+            "减少项目数量，降低沟通频率",
+            "建立常态化的跨部门需求沟通机制，如定期需求对齐会、联合评审等"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 111,
+        "title": "在跨部门协作中，当业务部门提出的需求技术上实现成本较高时，需求管理人员首先应该：",
+        "type": "单选",
+        "options": [
+            "直接拒绝该需求",
+            "向业务部门解释技术难点，共同探讨是否有替代方案能满足核心业务目标",
+            "隐瞒技术成本，先开发再说",
+            "要求业务部门增加预算"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 112,
+        "title": "当业务部门提出的需求与现有系统架构存在较大冲突时，运用\"赢得对方合作的沟通技巧\"，最合适的回应是：",
+        "type": "单选",
+        "options": [
+            "\"这个需求技术上做不到，你们换一个\"",
+            "\"你们不懂技术，别乱提需求\"",
+            "\"我理解这个需求对业务很重要，我们一起来探讨一下有没有既能满足业务目标、又在技术上可行的替代方案\"",
+            "直接拒绝，不再沟通"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 113,
+        "title": "在需求变更讨论中，业务方坚持要增加一个功能，但该功能会影响核心功能的交付时间。运用\"避免抗拒的沟通技巧\"，需求管理人员应该：",
+        "type": "单选",
+        "options": [
+            "先认可该功能的价值，然后反馈其对交付时间的影响，共同探讨优先级调整方案",
+            "直接拒绝变更",
+            "无条件接受变更",
+            "把责任推给项目经理"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 114,
+        "title": "当跨部门沟通陷入僵局，双方各执己见时，运用\"赢得对方合作的沟通技巧\"，最有效的策略是：",
+        "type": "单选",
+        "options": [
+            "坚持己见，直到对方让步",
+            "引入第三方裁决",
+            "暂停争论，回归共同目标（如\"我们都希望项目成功\"），在此基础上寻找双方都能接受的解决方案",
+            "放弃沟通，按自己的方案执行"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 115,
+        "title": "在需求讨论会上，业务部门和技术部门就某个功能的实现方式产生激烈争论，会议陷入僵局。作为会议主持人，最应该采取的措施是：",
+        "type": "单选",
+        "options": [
+            "任由双方继续争论，直到一方妥协",
+            "宣布休会，改天再议",
+            "支持自己倾向的一方",
+            "暂停争论，引导双方回归会议目标和业务价值，寻找共识基础"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 116,
+        "title": "当冲突源于双方对需求优先级的分歧时，最有效的处理策略是：",
+        "type": "单选",
+        "options": [
+            "按资源多少决定",
+            "引入客观的业务价值评估标准，共同确定优先级",
+            "抽签决定",
+            "谁职位高听谁的"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 117,
+        "title": "在需求变更沟通中，当业务部门提出紧急变更请求时，需求管理人员首先应该：",
+        "type": "单选",
+        "options": [
+            "立即答应，并催促开发人员修改",
+            "直接拒绝，维护项目计划稳定",
+            "向业务部门反馈变更的影响范围、成本和风险，协助其评估变更的优先级",
+            "将变更请求转发给项目经理，不再跟进"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 118,
+        "title": "在需求调研中，当业务用户表达了对现有系统的不满时，需求分析师采用同理心沟通的首要步骤是：",
+        "type": "单选",
+        "options": [
+            "立即解释系统设计的合理性",
+            "指出用户操作不当导致的问题",
+            "认可用户的感受，表示理解，再深入了解具体问题",
+            "跳过这个话题，直接询问其他需求"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 119,
+        "title": "需求评审会上，开发人员对某个需求的实现难度表达了强烈的抵触情绪。运用\"避免抗拒的沟通技巧\"，需求管理人员首先应该：",
+        "type": "单选",
+        "options": [
+            "强硬坚持需求必须实现",
+            "先认可对方的专业判断，理解其顾虑，再共同探讨解决方案",
+            "忽视情绪，继续讲解下一个需求",
+            "将开发人员请出会议室"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 120,
+        "title": "在与老虎型风格的需求提出方沟通时，需求分析师最应该注意：",
+        "type": "单选",
+        "options": [
+            "提供大量的细节数据和逻辑分析",
+            "给予充分的社交时间和情感交流",
+            "直击重点、讲求效率、关注结果和解决方案",
+            "放慢节奏，给予充分的思考时间"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 121,
+        "title": "主持需求评审会议时，以下哪项属于有效的主持技巧？",
+        "type": "单选",
+        "options": [
+            "让会议自由讨论，不设议程限制",
+            "只让领导发言，其他人不许插话",
+            "会议全程由需求分析师一个人讲解，不设互动",
+            "控制会议节奏，确保每个议题都有结论，避免跑题"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 122,
+        "title": "某电商系统需要支持多种促销方式：满减、打折、返券，且这些促销方式可能随时增减。从需求分析的角度，应该如何处理这类需求？",
+        "type": "单选",
+        "options": [
+            "将所有促销逻辑写在一个大模块中，便于统一修改",
+            "识别\"促销算法\"为变化点，将其封装为可独立扩展的模块",
+            "要求业务部门固定促销方式，不再变更",
+            "每种促销方式开发独立的系统"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 123,
+        "title": "某OA系统的请假审批流程：3天内组长审批，3-7天经理审批，7天以上总经理审批。审批层级可能随组织架构调整而变化。在需求分析中，这种流程类需求的关键特征是：",
+        "type": "单选",
+        "options": [
+            "流程步骤固定，不可变更",
+            "处理请求的对象可能随条件变化，且审批链可动态调整",
+            "只需要实现最简单的审批功能",
+            "审批流程与组织结构无关"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 124,
+        "title": "当需求中需要为一个核心功能动态添加多种可选附加功能（如短信的加密、压缩、签名等），且这些附加功能可以任意组合时，最合理的需求组织方式是：",
+        "type": "单选",
+        "options": [
+            "将所有附加功能写在一个需求项中",
+            "将核心功能作为一个需求，每种附加功能作为独立可选需求，支持自由组合",
+            "要求用户选择固定的功能组合，不允许自由搭配",
+            "为每种功能组合开发独立的模块"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 125,
+        "title": "当业务部门提出需求时，技术人员发现需求描述存在歧义。从跨部门沟通的角度，最合适的做法是：",
+        "type": "单选",
+        "options": [
+            "按照自己的理解直接开发",
+            "忽略歧义，等到测试阶段再确认",
+            "主动与业务部门沟通，通过追问澄清歧义点，形成共识",
+            "要求业务部门按照技术规范重新撰写需求文档"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 126,
+        "title": "以下关于软件需求定义的描述，最准确的是：",
+        "type": "单选",
+        "options": [
+            "用户口头提出的所有想法",
+            "开发人员认为系统应该具备的功能",
+            "项目合同中的技术条款",
+            "用户对目标软件系统的期望，包括功能、行为、性能和约束条件"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 127,
+        "title": "在软件需求管理过程中，常见的跨部门沟通障碍因素包括：",
+        "type": "多选",
+        "options": [
+            "各部门使用不同的专业术语，导致理解偏差",
+            "各部门的目标和考核指标不一致，利益诉求不同",
+            "办公楼的楼层分布不同",
+            "缺乏正式的沟通渠道和需求确认机制"
+        ],
+        "answer": "A#B#D"
+    },
+    {
+        "id": 128,
+        "title": "在跨部门需求沟通中，有效的\"倾听\"技巧包括：",
+        "type": "多选",
+        "options": [
+            "专注倾听，不打断对方，给予完整的表达空间",
+            "边听边思考对方的真实意图和背后诉求",
+            "通过提问和复述确认自己的理解是否正确",
+            "只听自己感兴趣的内容，其他内容忽略"
+        ],
+        "answer": "A#B#C"
+    },
+    {
+        "id": 129,
+        "title": "在软件需求管理中，召开有效的需求评审会议应该具备的要素包括：",
+        "type": "多选",
+        "options": [
+            "明确的会议议程和目标，提前发给参会人员",
+            "邀请正确的利益相关方参会",
+            "会议主持人具备控场能力，引导讨论产出结论",
+            "会议纪要记录达成的共识和待办事项"
+        ],
+        "answer": "A#B#C#D"
+    },
+    {
+        "id": 130,
+        "title": "在软件需求管理中，运用同理心沟通的典型场景包括：",
+        "type": "多选",
+        "options": [
+            "用户表达对现有系统的不满时，先理解情绪再了解问题",
+            "开发人员对需求实现难度表达担忧时，认可其专业判断再共同探讨",
+            "业务部门提出紧急变更时，理解其紧迫性再评估影响",
+            "需求文档需要签字确认时，直接要求对方签字"
+        ],
+        "answer": "A#B#C"
+    },
+    {
+        "id": 131,
+        "title": "只要程序能正确运行且满足需求文档，就是高质量的软件。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 132,
+        "title": "只要需求文档写得足够详细，跨部门沟通就不重要，各部门按照文档执行即可。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 133,
+        "title": "在需求沟通中，\"表达\"只需要说清楚自己的观点即可，不需要考虑对方的理解能力和背景。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 134,
+        "title": "支持性沟通意味着要完全赞同对方的所有观点，避免任何不同意见。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 135,
+        "title": "团队冲突在软件需求管理中完全是负面的，应该不惜一切代价避免。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 136,
+        "title": "把重复逻辑抽成独立函数，最直接带来的好处是？",
+        "type": "单选",
+        "options": [
+            "减少内存地址",
+            "提升代码复用性",
+            "替代指针",
+            "避免所有异常"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 137,
+        "title": "子类复用父类已有代码并扩展功能，体现的是哪种面向对象特性？",
+        "type": "单选",
+        "options": [
+            "继承",
+            "封装",
+            "多态",
+            "遍历"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 138,
+        "title": "在面向对象编程中，类与对象的关系更准确的是？",
+        "type": "单选",
+        "options": [
+            "类是具体实例，对象是抽象模板",
+            "类和对象没有区别",
+            "类是抽象模板，对象是具体实例",
+            "对象先于类存在"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 139,
+        "title": "下列哪种做法更有助于避免空指针或野指针引发的风险？",
+        "type": "单选",
+        "options": [
+            "释放后继续解引用",
+            "未初始化就直接访问",
+            "确认指针有效后再使用",
+            "把所有变量都改成全局"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 140,
+        "title": "在 Java IO 中，Reader 和 Writer 属于哪一类流？",
+        "type": "单选",
+        "options": [
+            "字节流",
+            "字符流",
+            "网络流",
+            "事务流"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 141,
+        "title": "在 Java 网络编程中，Socket 通常用于？",
+        "type": "单选",
+        "options": [
+            "建立网络通信连接",
+            "定义抽象类",
+            "执行垃圾回收",
+            "实现集合去重"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 142,
+        "title": "下列哪一组内容同时属于 JVM 基础知识中的内存结构？",
+        "type": "单选",
+        "options": [
+            "堆、栈、方法区",
+            "数组、链表、队列",
+            "线程、进程、协程",
+            "数据库、连接池、事务"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 143,
+        "title": "Java 中 GC 主要用于完成什么工作？",
+        "type": "单选",
+        "options": [
+            "垃圾回收",
+            "网络通信",
+            "事务提交",
+            "SQL 优化"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 144,
+        "title": "下列哪一项属于 Java 中创建线程的知识范畴？",
+        "type": "单选",
+        "options": [
+            "线程创建方式",
+            "JDBC 驱动注册",
+            "Socket 断开重连",
+            "事务隔离级别"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 145,
+        "title": "在多个线程访问共享资源时，使用线程同步机制的主要目的是什么？",
+        "type": "单选",
+        "options": [
+            "提高命名规范",
+            "控制线程安全",
+            "减少类的数量",
+            "替代异常处理"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 146,
+        "title": "下列关于 Java List 的描述，正确的是？",
+        "type": "单选",
+        "options": [
+            "元素有序且可重复",
+            "元素无序且不可重复",
+            "只能保存数字",
+            "不能按下标访问"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 147,
+        "title": "如果希望一组元素不重复，更适合优先考虑使用哪类 Java 集合？",
+        "type": "单选",
+        "options": [
+            "List",
+            "Set",
+            "Map",
+            "String"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 148,
+        "title": "Java 连接关系型数据库时，最直接对应的知识点是？",
+        "type": "单选",
+        "options": [
+            "JDBC",
+            "GC",
+            "继承",
+            "多态"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 149,
+        "title": "在数据库编程中，当一组操作必须要么全部成功要么全部失败时，应重点依赖哪项机制？",
+        "type": "单选",
+        "options": [
+            "事务管理",
+            "方法重载",
+            "接口隔离",
+            "垃圾回收"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 150,
+        "title": "在 Java 异常处理结构中，通常用于放置无论是否出现异常都要执行代码块的是？",
+        "type": "单选",
+        "options": [
+            "try",
+            "catch",
+            "finally",
+            "throw"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 151,
+        "title": "在 Java 中，自定义异常通常应如何实现？",
+        "type": "单选",
+        "options": [
+            "继承异常相关类",
+            "实现 Map 接口",
+            "重写 main 方法",
+            "放入 finally 块"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 152,
+        "title": "下列哪些属于 Java 集合框架中的常用结构或实现类？",
+        "type": "多选",
+        "options": [
+            "Socket",
+            "List",
+            "HashMap",
+            "ArrayList"
+        ],
+        "answer": "BCD"
+    },
+    {
+        "id": 153,
+        "title": "在 Java 中，finally 常用于放置资源释放等收尾操作。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 154,
+        "title": "下列哪个库更常用于 Python 数据处理？",
+        "type": "单选",
+        "options": [
+            "pandas",
+            "requests",
+            "asyncio",
+            "socketserver"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 155,
+        "title": "在 Python 常用库中，更偏向网络请求场景的是？",
+        "type": "单选",
+        "options": [
+            "requests",
+            "pandas",
+            "multiprocessing",
+            "numpy"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 156,
+        "title": "在 Python 中，用于定义函数的关键字是？",
+        "type": "单选",
+        "options": [
+            "def",
+            "class",
+            "try",
+            "with"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 157,
+        "title": "下列哪项更贴近 Python 中“参数传递”的知识范畴？",
+        "type": "单选",
+        "options": [
+            "函数调用时传入实参",
+            "建立数据库连接池",
+            "执行垃圾回收",
+            "配置线程同步锁"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 158,
+        "title": "如果要用一行表达式快速生成一个列表，更贴近 Python 哪个知识点？",
+        "type": "单选",
+        "options": [
+            "列表推导式",
+            "异常传播",
+            "模块安装",
+            "动态绑定"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 159,
+        "title": "在 Python 面向对象编程中，用于描述对象模板的是？",
+        "type": "单选",
+        "options": [
+            "类",
+            "循环",
+            "字典",
+            "事务"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 160,
+        "title": "在 Python 面向对象知识点中，更强调运行时根据对象实际类型决定调用行为的是？",
+        "type": "单选",
+        "options": [
+            "动态绑定",
+            "列表推导式",
+            "模块安装",
+            "文件读写"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 161,
+        "title": "在 Python 数据库操作知识点中，ORM 的价值更接近于？",
+        "type": "单选",
+        "options": [
+            "简化对象与数据库映射操作",
+            "替代异常处理",
+            "实现列表推导式",
+            "提升垃圾回收效率"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 162,
+        "title": "在 Python 文件操作中，使用 with open(...) 的主要收益更接近哪项知识点要求？",
+        "type": "单选",
+        "options": [
+            "资源管理方式",
+            "接口抽象",
+            "线程同步",
+            "GC 触发"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 163,
+        "title": "Python 中用于捕获异常的常见关键字组合起点是？",
+        "type": "单选",
+        "options": [
+            "try-except",
+            "if-else",
+            "for-in",
+            "class-def"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 164,
+        "title": "如果要自定义一个 Python 异常类型，最合适的做法是？",
+        "type": "单选",
+        "options": [
+            "定义异常类",
+            "创建列表推导式",
+            "新建 requests 会话",
+            "改写 with 语句"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 165,
+        "title": "下列哪些库属于 Python 知识点中明确提到的并发相关库？",
+        "type": "多选",
+        "options": [
+            "threading",
+            "multiprocessing",
+            "asyncio",
+            "pandas"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 166,
+        "title": "下列哪些库属于 Python 知识点中明确提到的数据处理常用库？",
+        "type": "多选",
+        "options": [
+            "numpy",
+            "pandas",
+            "requests",
+            "asyncio"
+        ],
+        "answer": "AB"
+    },
+    {
+        "id": 167,
+        "title": "列表推导式属于 Python 流程控制知识点覆盖的内容。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 168,
+        "title": "Python 中 using with open(...) 体现了文件与 IO 操作中的资源管理方式。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 169,
+        "title": "下列哪种数据结构最适合表示一组按顺序连续存放的数据？",
+        "type": "单选",
+        "options": [
+            "数组",
+            "图",
+            "树",
+            "栈"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 170,
+        "title": "下列哪种数据结构最符合“先进后出”的访问特点？",
+        "type": "单选",
+        "options": [
+            "队列",
+            "栈",
+            "图",
+            "树"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 171,
+        "title": "如果要表示多个节点之间复杂连接关系，更适合使用哪类数据结构？",
+        "type": "单选",
+        "options": [
+            "图",
+            "数组",
+            "栈",
+            "树"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 172,
+        "title": "若要在给定的多种结构中为业务选型，更应优先关注什么？",
+        "type": "单选",
+        "options": [
+            "存储方案是否与应用场景匹配",
+            "算法的理论时间复杂度",
+            "数据结构的内存占用",
+            "代码实现的简洁程度"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 173,
+        "title": "下列哪一项属于经典的排序算法？",
+        "type": "单选",
+        "options": [
+            "快排",
+            "哈希映射",
+            "二分查找",
+            "递归"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 174,
+        "title": "在已满足适用前提时，用于快速定位目标位置的经典查找算法是？",
+        "type": "单选",
+        "options": [
+            "冒泡排序",
+            "二分查找",
+            "深拷贝",
+            "哈希冲突"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 175,
+        "title": "函数在执行过程中调用自身，这种实现方式称为？",
+        "type": "单选",
+        "options": [
+            "继承",
+            "递归",
+            "回滚",
+            "分表"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 176,
+        "title": "下列关于归并排序的表述，哪一项更符合它的定位？",
+        "type": "单选",
+        "options": [
+            "属于经典排序算法",
+            "属于数据库治理策略",
+            "属于权限控制模型",
+            "属于日志审计机制"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 177,
+        "title": "在下列算法任务中，更适合“查找”而不是“排序”的是？",
+        "type": "单选",
+        "options": [
+            "把元素按大小规律重排",
+            "在有序数据中定位目标元素",
+            "拆分模块依赖",
+            "元素类型归类"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 178,
+        "title": "下列关于递归的理解，哪一项更合理？",
+        "type": "单选",
+        "options": [
+            "递归一定不会结束",
+            "递归与函数调用无关",
+            "递归的核心定义就是函数直接或间接调用自身",
+            "递归只能用于查询"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 179,
+        "title": "当算法时间复杂度为 O(n) 时，通常表示其执行开销会随什么变化？",
+        "type": "单选",
+        "options": [
+            "伴随输入规模线性增长",
+            "与输入规模完全无关",
+            "恒定为 1",
+            "一定快于 O(1)"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 180,
+        "title": "算法的空间复杂度主要用于评估什么？",
+        "type": "单选",
+        "options": [
+            "算法执行所需的时间",
+            "算法运行占用的内存空间",
+            "代码的逻辑复杂度",
+            "编译文件大小"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 181,
+        "title": "在比较多种实现方案时，复杂度分析能帮助开发人员优先发现哪类差异？",
+        "type": "单选",
+        "options": [
+            "执行效率和资源消耗差异",
+            "代码实现的行数与简洁度",
+            "功能逻辑的正确与完整性",
+            "变量命名的规范与语义"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 182,
+        "title": "下列哪些属于常用的数据结构？",
+        "type": "多选",
+        "options": [
+            "数组",
+            "链表",
+            "栈",
+            "队列"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 183,
+        "title": "下列哪些内容属于常见的基础算法？",
+        "type": "多选",
+        "options": [
+            "快排",
+            "归并",
+            "二分查找",
+            "递归"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 184,
+        "title": "二分查找属于排序算法。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 185,
+        "title": "时间复杂度和空间复杂度可以用来评估代码执行效率与资源消耗。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 186,
+        "title": "若两个开发分支修改了同一段代码，合并时需要重点处理什么？",
+        "type": "单选",
+        "options": [
+            "异常处理",
+            "代码分支冲突合并",
+            "动态扩容",
+            "权限控制"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 187,
+        "title": "面对海量数据访问场景，采用分库分表、读写分离属于？",
+        "type": "单选",
+        "options": [
+            "分布式扩展",
+            "模块图设计",
+            "权限控制",
+            "异常处理"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 188,
+        "title": "main 保稳定、feature 开发新功能、release 用于发布准备，这属于？",
+        "type": "单选",
+        "options": [
+            "分支管理策略",
+            "权限控制",
+            "异常处理",
+            "复杂度分析"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 189,
+        "title": "如果要分析 SQL 执行计划并借助索引提升查询性能，属于哪项？",
+        "type": "单选",
+        "options": [
+            "高效SQL编写",
+            "时序图绘制",
+            "日志审计",
+            "版本发布"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 190,
+        "title": "在关系型数据库设计中，主键、外键和索引的合理设计属于？",
+        "type": "单选",
+        "options": [
+            "关系型建模",
+            "日志脱敏",
+            "流程图表达",
+            "回归测试"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 191,
+        "title": "从技术、周期、成本等维度论证方案是否合理，属于哪项工作？",
+        "type": "单选",
+        "options": [
+            "可行性评估",
+            "代码提交",
+            "索引重建",
+            "异常传播"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 192,
+        "title": "如果要描述模块之间消息流转的先后时序顺序，更适合使用哪种图？",
+        "type": "单选",
+        "options": [
+            "流程图",
+            "时序图",
+            "柱状图",
+            "部署图"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 193,
+        "title": "按敏感等级分类数据，并制定存储期限和销毁流程，属于哪项？",
+        "type": "单选",
+        "options": [
+            "数据治理策略",
+            "时序图绘制",
+            "日志审计",
+            "版本发布"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 194,
+        "title": "如果业务要求对敏感数据设置保留期限并到期销毁，这属于？",
+        "type": "单选",
+        "options": [
+            "数据治理策略",
+            "模块图设计",
+            "二分查找",
+            "异常处理机制"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 195,
+        "title": "下列哪些内容属于数据库设计与治理工作？",
+        "type": "多选",
+        "options": [
+            "关系型建模",
+            "分布式扩展",
+            "高效SQL编写",
+            "数据治理策略"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 196,
+        "title": "下列哪些属于系统分析与建模工作？",
+        "type": "多选",
+        "options": [
+            "模块图设计",
+            "时序图绘制",
+            "流程图表达",
+            "可行性评估"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 197,
+        "title": "要在不影响主线稳定的前提下开发新功能，更合理的做法通常是直接在 feature 分支上进行。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 198,
+        "title": "某模块准备新增功能，但开发人员发现原有代码重复很多、修改一处常常牵连多处，此时更合适的做法是？",
+        "type": "单选",
+        "options": [
+            "先继续堆叠补丁，等上线后再说",
+            "保持现状，只补充使用说明",
+            "结合新增功能同步开展重构",
+            "直接删除旧代码后重写全部系统"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 199,
+        "title": "当代码已经难以维护且后续还要持续演进时，更合理的做法是？",
+        "type": "单选",
+        "options": [
+            "考虑开展重构",
+            "继续堆叠补丁",
+            "删除全部注释",
+            "停止版本管理"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 200,
+        "title": "重构后再次执行已有测试集，重点体现了哪类测试的作用？",
+        "type": "单选",
+        "options": [
+            "回归测试",
+            "冒烟测试",
+            "压力测试",
+            "白盒覆盖率"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 201,
+        "title": "依赖倒置原则更强调依赖关系应尽量建立在什么之上？",
+        "type": "单选",
+        "options": [
+            "抽象",
+            "实现细节",
+            "全局变量",
+            "硬编码字符串"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 202,
+        "title": "下列哪种状态更符合“高内聚、低耦合”的目标？",
+        "type": "单选",
+        "options": [
+            "模块内部职责集中，模块之间依赖清晰且较少",
+            "一个类承担所有功能",
+            "多个模块相互循环依赖",
+            "同一逻辑散落在各处"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 203,
+        "title": "下列哪些场景属于知识点中明确提到的重构时机？",
+        "type": "多选",
+        "options": [
+            "新增功能",
+            "修复缺陷",
+            "性能优化",
+            "代码难以维护"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 204,
+        "title": "IDE 自动重构工具、版本控制、持续集成都可以支持重构实践。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 205,
+        "title": "重构一定会改变软件的外部行为。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 206,
+        "title": "“灵犀数智员工”在处理用户咨询时，首先需要理解用户意图，这主要依赖哪项技术？",
+        "type": "单选",
+        "options": [
+            "自然语言处理",
+            "机器人流程自动化",
+            "光学字符识别",
+            "数据可视化"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 207,
+        "title": "在知识库构建中，将非结构化文本转化为结构化知识，通常采用的技术是？",
+        "type": "单选",
+        "options": [
+            "数据清洗",
+            "信息抽取",
+            "数据压缩",
+            "数据备份"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 208,
+        "title": "在机器学习中，用于衡量分类模型预测准确程度的指标是？",
+        "type": "单选",
+        "options": [
+            "均方误差",
+            "准确率",
+            "召回率",
+            "F1分数"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 209,
+        "title": "“灵犀”数智员工能够同时处理文字、语音和图片信息，这体现了其具备哪种能力？",
+        "type": "单选",
+        "options": [
+            "单一模态处理",
+            "多模态交互能力",
+            "复杂逻辑推理",
+            "大数据分析"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 210,
+        "title": "在RAG应用中，如果用户提问“我们公司去年的营收是多少？”，检索步骤最可能去向量数据库中查找什么？",
+        "type": "单选",
+        "options": [
+            "所有文档",
+            "与“公司营收”最相关的文本片段",
+            "公司的员工名单",
+            "去年的全部新闻"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 211,
+        "title": "在数据预处理阶段，将分类特征（如“红”，“绿”，“蓝”）转换为数值特征的过程称为？",
+        "type": "单选",
+        "options": [
+            "归一化",
+            "标准化",
+            "独热编码",
+            "特征选择"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 212,
+        "title": "对于地市数智治理工作，以下哪个是“灵犀”数智员工最典型的应用场景？",
+        "type": "单选",
+        "options": [
+            "编写复杂的公司财报",
+            "根据市民投诉自动分派工单到责任部门",
+            "进行天文物理研究",
+            "开发新的编程语言"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 213,
+        "title": "在知识库管理中，对文档进行分块（Chunking）的主要目的是？",
+        "type": "单选",
+        "options": [
+            "减少存储空间",
+            "使检索时能定位到更精准的文本片段",
+            "增加文档数量",
+            "使文档更美观"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 214,
+        "title": "在构建地市级的数智员工时，首要考虑的数据处理原则是？",
+        "type": "单选",
+        "options": [
+            "数据量越大越好",
+            "数据安全与隐私保护",
+            "数据格式统一为JSON",
+            "全部使用实时数据"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 215,
+        "title": "“灵犀”数智员工在处理市民投诉时，自动识别出投诉类型（如噪音、卫生）的过程，属于以下哪种技术应用？",
+        "type": "单选",
+        "options": [
+            "图像识别",
+            "自然语言分类",
+            "语音合成",
+            "数据可视化"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 216,
+        "title": "在RAG应用中，对检索回来的多个相关文本片段进行“重排序”（Re-ranking）的主要目的是？",
+        "type": "单选",
+        "options": [
+            "增加计算量",
+            "将最相关的信息排在前面",
+            "减少文本长度",
+            "美化输出格式"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 217,
+        "title": "地市数智治理工作中，利用“灵犀”数智员工进行城市事件自动发现（如井盖缺失），主要依赖的感知技术是？",
+        "type": "单选",
+        "options": [
+            "物联网传感器",
+            "计算机视觉",
+            "社交媒体文本分析",
+            "人工上报"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 218,
+        "title": "构建一个高质量的问答知识库，需要对数据进行哪些处理？",
+        "type": "多选",
+        "options": [
+            "数据清洗（去除噪声）",
+            "数据标注（打标签）",
+            "数据分块",
+            "数据加密"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 219,
+        "title": "在知识库构建中，使用向量数据库相较于传统数据库的优势有？",
+        "type": "多选",
+        "options": [
+            "支持语义相似性搜索",
+            "能够处理非结构化数据",
+            "检索速度更快",
+            "支持SQL查询"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 220,
+        "title": "“灵犀”数智员工在服务市民时，可以通过哪些渠道接收反馈？",
+        "type": "多选",
+        "options": [
+            "对话界面满意度评分",
+            "后台工单处理结果",
+            "用户语音评价",
+            "系统自动生成的报表"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 221,
+        "title": "“灵犀”数智员工在赋能地市治理时，可以扮演哪些角色？",
+        "type": "多选",
+        "options": [
+            "自动化的业务办理员",
+            "智能的咨询客服",
+            "决策支持的分析师",
+            "物理世界的执法者"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 222,
+        "title": "机器学习中的“过拟合”现象是指模型在训练集上表现良好，但在测试集上表现差。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 223,
+        "title": "在数智治理工作中，使用“灵犀”数智员工处理工单可以显著提高处置效率。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 224,
+        "title": "深度学习是机器学习的一个子集。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 225,
+        "title": "“灵犀”数智员工能够24小时不间断地处理业务，有效弥补了人工服务的空档期。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 226,
+        "title": "机器学习模型的特征工程主要是由计算机自动完成的，不需要人工参与。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 227,
+        "title": "在知识库管理中，元数据（如作者、创建时间）的维护对于知识检索没有帮助。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 228,
+        "title": "在机器学习中，特征缩放（如归一化）可以加快模型训练的收敛速度。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 229,
+        "title": "知识库的定期更新和维护是保证智能体回答时效性和准确性的重要手段。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 230,
+        "title": "以下哪个选项属于“编程与算法能力（SK4-2）”在智能体开发中的具体应用？",
+        "type": "单选",
+        "options": [
+            "使用自然语言设计工作流",
+            "编写Python脚本来处理非标准格式的数据",
+            "为智能体设计美观的UI界面",
+            "撰写项目需求文档"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 231,
+        "title": "“梯度消失”问题主要发生在哪种网络中？",
+        "type": "单选",
+        "options": [
+            "深层神经网络",
+            "浅层神经网络",
+            "线性回归模型",
+            "聚类模型"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 232,
+        "title": "以下哪个是用于解决“梯度消失”问题的技术？",
+        "type": "单选",
+        "options": [
+            "使用ReLU激活函数",
+            "使用Sigmoid激活函数",
+            "增加学习率",
+            "增加网络层数"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 233,
+        "title": "以下哪个是“情感分析”任务的目标？",
+        "type": "单选",
+        "options": [
+            "判断文本的情感倾向（如正面、负面）",
+            "提取文本中的关键词",
+            "对文本进行翻译",
+            "判断文本的语言类型"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 234,
+        "title": "“迁移学习”的核心思想是？",
+        "type": "单选",
+        "options": [
+            "将一个领域学到的知识应用到另一个相关领域",
+            "从零开始训练一个全新的模型",
+            "在同一数据集上训练多个模型",
+            "只关注模型在训练集上的表现"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 235,
+        "title": "“特征工程”指的是什么？",
+        "type": "单选",
+        "options": [
+            "将原始数据转化为更能代表问题本质的特征的过程",
+            "选择最优的机器学习算法",
+            "调整模型的超参数",
+            "对模型预测结果进行解释"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 236,
+        "title": "“注意力机制”最初是在哪个领域被广泛应用的？",
+        "type": "单选",
+        "options": [
+            "机器翻译",
+            "图像分类",
+            "语音识别",
+            "强化学习"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 237,
+        "title": "“集成学习”通过什么方式提升模型性能？",
+        "type": "单选",
+        "options": [
+            "组合多个模型的结果",
+            "只训练一个最好的模型",
+            "增加训练数据量",
+            "使用更复杂的单个模型"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 238,
+        "title": "以下哪项是“无监督学习”的典型应用？",
+        "type": "单选",
+        "options": [
+            "客户分群",
+            "房价预测",
+            "垃圾邮件分类",
+            "医疗诊断"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 239,
+        "title": "以下哪个是“集成学习”的典型算法？",
+        "type": "单选",
+        "options": [
+            "随机森林（Random Forest）",
+            "K-Means",
+            "主成分分析（PCA）",
+            "线性回归"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 240,
+        "title": "“LSTM”是RNN的一种变体，专门设计用于解决长序列依赖问题。",
+        "type": "单选",
+        "options": [
+            "是",
+            "否"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 241,
+        "title": "数据清洗的主要目标不包括以下哪项？",
+        "type": "单选",
+        "options": [
+            "增加数据量",
+            "处理缺失值",
+            "去除重复数据",
+            "纠正格式错误"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 242,
+        "title": "以下哪个算法是“监督学习”的典型代表？",
+        "type": "单选",
+        "options": [
+            "支持向量机（SVM）",
+            "K-Means",
+            "主成分分析（PCA）",
+            "关联规则（Apriori）"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 243,
+        "title": "“准确率”这个指标在什么情况下可能具有误导性？",
+        "type": "单选",
+        "options": [
+            "数据类别不平衡时",
+            "数据量很大时",
+            "模型复杂度很高时",
+            "训练时间很长时"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 244,
+        "title": "“神经网络”的“反向传播”算法主要用于什么？",
+        "type": "单选",
+        "options": [
+            "计算梯度，更新模型参数",
+            "前向传播数据",
+            "初始化模型权重",
+            "防止过拟合"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 245,
+        "title": "“正则化”技术的主要目的是什么？",
+        "type": "单选",
+        "options": [
+            "防止模型过拟合",
+            "加速模型训练",
+            "提高模型预测速度",
+            "增加模型复杂度"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 246,
+        "title": "“变分自编码器（VAE）”主要用于什么任务？",
+        "type": "单选",
+        "options": [
+            "生成新的数据",
+            "分类",
+            "回归",
+            "排序"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 247,
+        "title": "以下哪个是“文本分类”任务中常用的特征表示方法？",
+        "type": "单选",
+        "options": [
+            "词袋模型（Bag of Words）",
+            "像素值",
+            "坐标点",
+            "音频波形"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 248,
+        "title": "“自注意力机制”（Self-Attention）的主要作用是？",
+        "type": "单选",
+        "options": [
+            "捕捉序列中不同位置元素之间的依赖关系",
+            "加速模型训练",
+            "降低模型参数量",
+            "防止梯度消失"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 249,
+        "title": "“ROC曲线”和“AUC”通常用于评估什么？",
+        "type": "单选",
+        "options": [
+            "二分类模型的性能",
+            "多分类模型的性能",
+            "聚类模型的性能",
+            "回归模型的性能"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 250,
+        "title": "“混淆矩阵”主要用于评估什么？",
+        "type": "单选",
+        "options": [
+            "分类模型的性能",
+            "回归模型的性能",
+            "聚类模型的效果",
+            "模型训练的速度"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 251,
+        "title": "以下哪项是“数据增强”技术的常见应用？",
+        "type": "单选",
+        "options": [
+            "在图像识别中对图片进行旋转、翻转",
+            "增加更多的训练数据",
+            "删除重复的数据",
+            "提高数据质量"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 252,
+        "title": "以下哪个是“序列到序列”（Seq2Seq）模型的典型应用？",
+        "type": "单选",
+        "options": [
+            "机器翻译",
+            "图像分类",
+            "语音唤醒",
+            "目标检测"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 253,
+        "title": "“微调”（Fine-tuning）在大模型应用中指的是什么？",
+        "type": "单选",
+        "options": [
+            "在预训练模型基础上，用少量特定领域数据继续训练",
+            "从头开始训练一个新模型",
+            "调整模型的超参数",
+            "改变模型的输出格式"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 254,
+        "title": "“协同过滤”算法常用于哪个领域？",
+        "type": "单选",
+        "options": [
+            "推荐系统",
+            "计算机视觉",
+            "自然语言处理",
+            "语音识别"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 255,
+        "title": "以下哪个是“语义分割”任务与“实例分割”任务的主要区别？",
+        "type": "单选",
+        "options": [
+            "是否区分同一类别的不同个体",
+            "是否输出边界框",
+            "是否进行图像分类",
+            "是否需要标注"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 256,
+        "title": "“知识蒸馏”中，学生模型通常比教师模型更？",
+        "type": "单选",
+        "options": [
+            "轻量级",
+            "复杂",
+            "准确",
+            "深层"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 257,
+        "title": "以下哪些是机器学习中常见的“超参数”？",
+        "type": "多选",
+        "options": [
+            "学习率",
+            "网络层数",
+            "神经元个数",
+            "模型权重"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 258,
+        "title": "在“聚智智能体工作流编排”中，用于连接不同执行节点的线条主要表示什么？",
+        "type": "单选",
+        "options": [
+            "数据流向和逻辑顺序",
+            "节点的物理位置",
+            "节点的颜色代码",
+            "节点的创建时间"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 259,
+        "title": "以下哪个选项是大型语言模型（LLM）最核心的能力？",
+        "type": "单选",
+        "options": [
+            "图像识别",
+            "语音合成",
+            "文本生成与理解",
+            "数据加密"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 260,
+        "title": "在“聚智”平台中，创建一个能够自动处理工单的智能体，首要步骤是什么？",
+        "type": "单选",
+        "options": [
+            "编写代码",
+            "定义智能体的目标和能力",
+            "部署服务器",
+            "进行压力测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 261,
+        "title": "“磐匠”数字员工的流程设计，通常通过哪种方式实现，以降低开发门槛？",
+        "type": "单选",
+        "options": [
+            "纯代码编写",
+            "拖拽式图形化编排",
+            "命令行脚本",
+            "直接修改配置文件"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 262,
+        "title": "智能体在工作流编排中，如果一个“条件判断”节点判断为“否”，它会做什么？",
+        "type": "单选",
+        "options": [
+            "停止整个工作流",
+            "按照“否”分支继续执行",
+            "自动修复条件",
+            "忽略结果继续执行"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 263,
+        "title": "在“聚智”工作流编排中，如果需要智能体从外部API获取天气信息，应使用什么类型的节点？",
+        "type": "单选",
+        "options": [
+            "开始节点",
+            "LLM节点",
+            "工具/插件节点",
+            "结束节点"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 264,
+        "title": "大模型中的“上下文窗口”是指什么？",
+        "type": "单选",
+        "options": [
+            "模型运行的内存大小",
+            "模型一次能处理的输入和输出的最大Token数量",
+            "模型训练的数据总量",
+            "模型的参数数量"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 265,
+        "title": "在“磐匠”数字员工中，模拟人类在电脑界面上的点击、输入等操作的自动化技术是？",
+        "type": "单选",
+        "options": [
+            "人工智能（AI）",
+            "机器人流程自动化（RPA）",
+            "自然语言处理（NLP）",
+            "光学字符识别（OCR）"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 266,
+        "title": "一个完整的智能体系统通常不包括以下哪个部分？",
+        "type": "单选",
+        "options": [
+            "感知模块",
+            "决策规划模块",
+            "物理执行模块（机器人本体）",
+            "数据库管理系统"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 267,
+        "title": "在“人工智能关键技术”中，Transformer架构的最大贡献是？",
+        "type": "单选",
+        "options": [
+            "引入了卷积操作",
+            "提出了自注意力机制",
+            "发明了循环神经网络",
+            "实现了图像分类"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 268,
+        "title": "以下哪项是衡量大模型生成文本多样性的常见参数？",
+        "type": "单选",
+        "options": [
+            "Top-k",
+            "学习率",
+            "批量大小",
+            "迭代次数"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 269,
+        "title": "一个好的提示词（Prompt）通常包含哪些要素？",
+        "type": "多选",
+        "options": [
+            "清晰的任务指令",
+            "必要的上下文信息",
+            "期望的输出格式",
+            "无关的冗余信息"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 270,
+        "title": "RAG（检索增强生成）技术可以有效解决大模型知识更新不及时的问题。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 271,
+        "title": "在“聚智”工作流中，可以使用Python代码节点来实现更复杂的自定义逻辑。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 272,
+        "title": "智能体的“工具调用”能力指的是它可以自主决定何时使用何种外部工具（如计算器、搜索引擎）。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 273,
+        "title": "在“聚智”工作流编排中，一个节点执行失败会导致整个工作流停止，无法进行后续处理。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 274,
+        "title": "大模型的“上下文窗口”大小决定了它能处理的文本长度。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 275,
+        "title": "在“聚智”工作流中，可以通过并行节点来同时处理多个独立任务，以提高效率。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 276,
+        "title": "智能体的“决策规划”能力是连接“感知”和“行动”的桥梁。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 277,
+        "title": "大模型的温度参数设置为较高值（如0.9）时，模型的输出会更加随机和多样。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 278,
+        "title": "“聚智”工作流中，变量只能在开始节点中定义。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 279,
+        "title": "在“聚智”工作流中，可以通过“工具节点”调用外部的API，如查询天气。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 280,
+        "title": "RAG技术可以完全替代大模型的微调。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 281,
+        "title": "智能体的“规划”能力是指它能将复杂任务分解为一系列可执行的子任务。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 282,
+        "title": "“聚智”工作流编排只支持顺序执行，不支持并行执行。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 283,
+        "title": "在“聚智”工作流中，可以将一个已经发布的工作流作为子流程，集成到另一个更大的工作流中。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 284,
+        "title": "大模型的“上下文学习”（In-Context Learning）能力是指它在推理时，仅通过提示词中的示例就能学习执行新任务，而无需更新模型参数。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 285,
+        "title": "“磐匠”数字员工只能运行在Windows操作系统上。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 286,
+        "title": "Hadoop分布式文件系统的名称是？",
+        "type": "单选",
+        "options": [
+            "A. HDFS",
+            "B. HBase",
+            "C. YARN",
+            "D. MapReduce"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 287,
+        "title": "在Spark中，用于表示不可变、分区、可并行计算的数据集的核心抽象是？",
+        "type": "单选",
+        "options": [
+            "A. DataFrame",
+            "B. DataSet",
+            "C. RDD",
+            "D. DStream"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 288,
+        "title": "Spark SQL中，用于注册临时视图以便进行SQL查询的方法是？",
+        "type": "单选",
+        "options": [
+            "A. createOrReplaceTempView",
+            "B. registerTempTable",
+            "C. createTempView",
+            "D. sqlContext.sql"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 289,
+        "title": "MapReduce中，负责将Map输出分配给特定Reduce任务的函数是？",
+        "type": "单选",
+        "options": [
+            "A. Mapper",
+            "B. Reducer",
+            "C. Partitioner",
+            "D. Combiner"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 290,
+        "title": "在Hadoop中，负责资源管理的框架是？",
+        "type": "单选",
+        "options": [
+            "A. HDFS",
+            "B. MapReduce",
+            "C. YARN",
+            "D. ZooKeeper"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 291,
+        "title": "HBase中，表的行键（RowKey）设计对性能影响很大，通常应遵循什么原则？",
+        "type": "单选",
+        "options": [
+            "A. 越短越好",
+            "B. 尽量使用单调递增",
+            "C. 尽量分散避免热点",
+            "D. 包含所有列族"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 292,
+        "title": "Hadoop中，负责存储元数据（如文件系统目录树）的节点是？",
+        "type": "单选",
+        "options": [
+            "A. DataNode",
+            "B. NameNode",
+            "C. SecondaryNameNode",
+            "D. ResourceManager"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 293,
+        "title": "Hadoop中，块（Block）的默认大小是多少？",
+        "type": "单选",
+        "options": [
+            "A. 64MB",
+            "B. 128MB",
+            "C. 256MB",
+            "D. 512MB"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 294,
+        "title": "Hadoop中，MapReduce程序的输入和输出通常存储在什么文件系统中？",
+        "type": "单选",
+        "options": [
+            "A. 本地文件系统",
+            "B. HDFS",
+            "C. 数据库",
+            "D. 内存"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 295,
+        "title": "Hadoop生态系统中，以下哪些组件属于计算框架？",
+        "type": "多选",
+        "options": [
+            "A. HDFS",
+            "B. MapReduce",
+            "C. YARN",
+            "D. Spark"
+        ],
+        "answer": "BD"
+    },
+    {
+        "id": 296,
+        "title": "Hive中，常用的文件存储格式有？",
+        "type": "多选",
+        "options": [
+            "A. TextFile",
+            "B. SequenceFile",
+            "C. Parquet",
+            "D. ORC"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 297,
+        "title": "在数据仓库建模中，以下哪种模型通常由一个中心事实表和多个维度表组成，形状类似星星？",
+        "type": "单选",
+        "options": [
+            "A. 雪花模型",
+            "B. 星型模型",
+            "C. 星座模型",
+            "D. 网状模型"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 298,
+        "title": "以下哪种数据模型以“实体-关系”为基础，使用表格来表示实体和关系？",
+        "type": "单选",
+        "options": [
+            "A. 层次模型",
+            "B. 网状模型",
+            "C. 关系模型",
+            "D. 面向对象模型"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 299,
+        "title": "在数据仓库中，用于存储经过清洗、转换后的详细数据，通常称为？",
+        "type": "单选",
+        "options": [
+            "A. ODS",
+            "B. DWD",
+            "C. DWS",
+            "D. ADS"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 300,
+        "title": "在数据仓库中，缓慢变化维（SCD）类型1是指？",
+        "type": "单选",
+        "options": [
+            "A. 直接覆盖原值",
+            "B. 添加新行保留历史",
+            "C. 添加新列记录变化",
+            "D. 不处理"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 301,
+        "title": "在数据仓库建模中，事实表通常包含哪些类型的列？",
+        "type": "单选",
+        "options": [
+            "A. 描述性属性",
+            "B. 维度外键和度量值",
+            "C. 主键和索引",
+            "D. 所有列都是文本"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 302,
+        "title": "在数据库设计中，将数据表规范化到第三范式通常是为了解决什么问题？",
+        "type": "单选",
+        "options": [
+            "A. 数据冗余和更新异常",
+            "B. 查询速度慢",
+            "C. 数据安全性",
+            "D. 并发控制"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 303,
+        "title": "在数据仓库中，维度表通常包含什么？",
+        "type": "单选",
+        "options": [
+            "A. 度量值和事实",
+            "B. 描述性属性和主键",
+            "C. 交易记录",
+            "D. 汇总数据"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 304,
+        "title": "在数据仓库中，ETL指的是什么？",
+        "type": "单选",
+        "options": [
+            "A. Extract, Transform, Load",
+            "B. Enter, Transfer, Load",
+            "C. Extract, Transfer, Load",
+            "D. Enter, Transform, Load"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 305,
+        "title": "在数据仓库中，什么是粒度？",
+        "type": "单选",
+        "options": [
+            "A. 数据存储的压缩比",
+            "B. 事实表中一行所代表的事件的详细程度",
+            "C. 维度表的行数",
+            "D. 数据的更新时间"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 306,
+        "title": "在数据仓库中，数据从OLTP系统到数据仓库通常需要经过什么过程？",
+        "type": "单选",
+        "options": [
+            "A. ETL",
+            "B. ELT",
+            "C. 两者都是",
+            "D. 数据复制"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 307,
+        "title": "在数据仓库中，什么是代理键？",
+        "type": "单选",
+        "options": [
+            "A. 业务系统使用的自然键",
+            "B. 维度表中为每个维度行生成的唯一标识，无业务含义",
+            "C. 事实表中的外键",
+            "D. 数据库中的索引"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 308,
+        "title": "在数据仓库建模中，维度表的常见类型包括？",
+        "type": "多选",
+        "options": [
+            "A. 退化维度",
+            "B. 缓慢变化维",
+            "C. 角色扮演维",
+            "D. 杂项维度"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 309,
+        "title": "在数据仓库中，事实表通常非常庞大，而维度表相对较小。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 310,
+        "title": "SQL语言中，用于从数据库中查询数据的语句是？",
+        "type": "单选",
+        "options": [
+            "A. SELECT",
+            "B. INSERT",
+            "C. UPDATE",
+            "D. DELETE"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 311,
+        "title": "Hive中，用于创建表并指定字段分隔符的语句是？",
+        "type": "单选",
+        "options": [
+            "A. CREATE TABLE ... ROW FORMAT DELIMITED FIELDS TERMINATED BY ','",
+            "B. CREATE TABLE ... WITH SERDEPROPERTIES",
+            "C. CREATE EXTERNAL TABLE ...",
+            "D. CREATE TABLE ... STORED AS TEXTFILE"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 312,
+        "title": "在SQL中，用于对分组后的数据进行条件过滤的子句是？",
+        "type": "单选",
+        "options": [
+            "A. WHERE",
+            "B. HAVING",
+            "C. GROUP BY",
+            "D. ORDER BY"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 313,
+        "title": "在SQL中，用于连接两个表的查询，如果左表所有行都保留，右表没有匹配则返回NULL，这是哪种连接？",
+        "type": "单选",
+        "options": [
+            "A. INNER JOIN",
+            "B. LEFT JOIN",
+            "C. RIGHT JOIN",
+            "D. FULL JOIN"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 314,
+        "title": "在关系型数据库中，用于保证数据完整性，使某个字段的值必须唯一且非空的约束是？",
+        "type": "单选",
+        "options": [
+            "A. 主键约束",
+            "B. 外键约束",
+            "C. 检查约束",
+            "D. 默认约束"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 315,
+        "title": "Hive中，用于加载数据到表中的命令是？",
+        "type": "单选",
+        "options": [
+            "A. LOAD DATA",
+            "B. INSERT INTO",
+            "C. IMPORT",
+            "D. ADD FILE"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 316,
+        "title": "在SQL中，用于更新表中数据的语句是？",
+        "type": "单选",
+        "options": [
+            "A. UPDATE",
+            "B. ALTER",
+            "C. INSERT",
+            "D. MODIFY"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 317,
+        "title": "在数据库事务中，ACID中的C代表什么？",
+        "type": "单选",
+        "options": [
+            "A. Consistency（一致性）",
+            "B. Concurrency（并发性）",
+            "C. Connection（连接）",
+            "D. Commit（提交）"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 318,
+        "title": "Hive中，创建外部表需要使用哪个关键字？",
+        "type": "单选",
+        "options": [
+            "A. EXTERNAL",
+            "B. OUTER",
+            "C. TEMPORARY",
+            "D. MANAGED"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 319,
+        "title": "Hive中，分区的目的是什么？",
+        "type": "单选",
+        "options": [
+            "A. 提高查询性能",
+            "B. 便于数据管理",
+            "C. 减少数据扫描",
+            "D. 以上都是"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 320,
+        "title": "在关系型数据库中，视图（View）是什么？",
+        "type": "单选",
+        "options": [
+            "A. 虚拟表，基于SQL查询结果",
+            "B. 物理存储的表",
+            "C. 索引的一种",
+            "D. 存储过程"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 321,
+        "title": "在关系型数据库中，以下哪个语句用于创建索引？",
+        "type": "单选",
+        "options": [
+            "A. CREATE INDEX",
+            "B. CREATE KEY",
+            "C. ADD INDEX",
+            "D. INDEX ON"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 322,
+        "title": "Hive中，对于非结构化的日志数据，通常使用什么方式提取字段？",
+        "type": "单选",
+        "options": [
+            "A. 正则表达式SerDe",
+            "B. 分隔符",
+            "C. JSON SerDe",
+            "D. 自定义UDF"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 323,
+        "title": "在关系型数据库中，事务的原子性是指？",
+        "type": "单选",
+        "options": [
+            "A. 事务中的所有操作要么全部成功，要么全部失败",
+            "B. 事务执行前后数据库状态一致",
+            "C. 并发事务之间相互隔离",
+            "D. 事务一旦提交，结果永久保存"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 324,
+        "title": "Hive中，对于分桶表，其目的是？",
+        "type": "单选",
+        "options": [
+            "A. 提高查询效率",
+            "B. 便于抽样",
+            "C. 提高连接效率",
+            "D. 以上都是"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 325,
+        "title": "在关系型数据库中，用于删除整个表及其结构的命令是？",
+        "type": "单选",
+        "options": [
+            "A. DELETE",
+            "B. TRUNCATE",
+            "C. DROP",
+            "D. REMOVE"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 326,
+        "title": "在SQL中，常用的聚合函数有哪些？",
+        "type": "多选",
+        "options": [
+            "A. SUM",
+            "B. AVG",
+            "C. COUNT",
+            "D. MAX"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 327,
+        "title": "在关系型数据库中，索引的类型包括？",
+        "type": "多选",
+        "options": [
+            "A. 普通索引",
+            "B. 唯一索引",
+            "C. 主键索引",
+            "D. 全文索引"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 328,
+        "title": "在SQL中，使用GROUP BY时，SELECT后的列必须要么是分组列，要么是聚合函数。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 329,
+        "title": "在关系型数据库中，外键约束用于确保两张表之间的数据一致性。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 330,
+        "title": "在Python中，用于数据分析的核心库，提供了DataFrame数据结构的是哪个库？",
+        "type": "单选",
+        "options": [
+            "A. NumPy",
+            "B. Pandas",
+            "C. Matplotlib",
+            "D. Scikit-learn"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 331,
+        "title": "在Python的Pandas库中，用于读取CSV文件的函数是？",
+        "type": "单选",
+        "options": [
+            "A. read_excel()",
+            "B. read_csv()",
+            "C. read_table()",
+            "D. read_sql()"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 332,
+        "title": "在Python中，使用Scikit-learn进行数据标准化，常用的类是？",
+        "type": "单选",
+        "options": [
+            "A. StandardScaler",
+            "B. MinMaxScaler",
+            "C. Normalizer",
+            "D. 以上都是"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 333,
+        "title": "在Python中，使用Matplotlib设置图形标题，应使用哪个函数？",
+        "type": "单选",
+        "options": [
+            "A. title()",
+            "B. xlabel()",
+            "C. ylabel()",
+            "D. legend()"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 334,
+        "title": "以下哪些是Python中常用的数据分析库？",
+        "type": "多选",
+        "options": [
+            "A. NumPy",
+            "B. Pandas",
+            "C. Matplotlib",
+            "D. Scikit-learn"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 335,
+        "title": "在数据预处理中，数据清洗包括哪些内容？",
+        "type": "多选",
+        "options": [
+            "A. 处理缺失值",
+            "B. 处理异常值",
+            "C. 去重",
+            "D. 数据标准化"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 336,
+        "title": "在Python数据分析中，常用的数据探索与可视化库包括？",
+        "type": "多选",
+        "options": [
+            "A. Matplotlib",
+            "B. Seaborn",
+            "C. Plotly",
+            "D. Bokeh"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 337,
+        "title": "在Python中，Pandas的DataFrame是可变的数据结构，可以修改其中的值。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 338,
+        "title": "下列哪种算法属于无监督学习中的聚类算法？",
+        "type": "单选",
+        "options": [
+            "A. 线性回归",
+            "B. 决策树",
+            "C. K-Means",
+            "D. 支持向量机"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 339,
+        "title": "在数据预处理中，将数据转换为适合挖掘的格式，例如归一化、离散化等，这个过程称为？",
+        "type": "单选",
+        "options": [
+            "A. 数据清洗",
+            "B. 数据集成",
+            "C. 数据变换",
+            "D. 数据规约"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 340,
+        "title": "在数据挖掘中，Apriori算法主要用于解决什么问题？",
+        "type": "单选",
+        "options": [
+            "A. 分类",
+            "B. 聚类",
+            "C. 关联规则挖掘",
+            "D. 回归"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 341,
+        "title": "决策树算法中，用于选择最优划分属性的常用指标是？",
+        "type": "单选",
+        "options": [
+            "A. 信息增益",
+            "B. 基尼系数",
+            "C. 均方误差",
+            "D. 以上都是"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 342,
+        "title": "在文本挖掘中，将文本转换为数值向量的常用方法是？",
+        "type": "单选",
+        "options": [
+            "A. TF-IDF",
+            "B. 词袋模型",
+            "C. Word2Vec",
+            "D. 以上都是"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 343,
+        "title": "在关联规则挖掘中，用于衡量规则可靠性的指标是？",
+        "type": "单选",
+        "options": [
+            "A. 支持度",
+            "B. 置信度",
+            "C. 提升度",
+            "D. 覆盖率"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 344,
+        "title": "在文本挖掘中，去除“的”、“是”、“在”等常见词的过程称为？",
+        "type": "单选",
+        "options": [
+            "A. 分词",
+            "B. 词干提取",
+            "C. 停用词过滤",
+            "D. 词性标注"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 345,
+        "title": "在数据挖掘中，用于评估分类模型性能的指标不包括？",
+        "type": "单选",
+        "options": [
+            "A. 准确率",
+            "B. 召回率",
+            "C. 均方误差",
+            "D. F1值"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 346,
+        "title": "在聚类算法中，K-Means算法的K指的是？",
+        "type": "单选",
+        "options": [
+            "A. 迭代次数",
+            "B. 簇的数量",
+            "C. 样本数量",
+            "D. 特征维度"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 347,
+        "title": "在分类算法中，随机森林是由多个什么组成的集成模型？",
+        "type": "单选",
+        "options": [
+            "A. 决策树",
+            "B. 神经网络",
+            "C. 支持向量机",
+            "D. 线性回归"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 348,
+        "title": "在聚类算法中，DBSCAN相比于K-Means的主要优势是？",
+        "type": "单选",
+        "options": [
+            "A. 可以处理任意形状的簇",
+            "B. 不需要预先指定簇数量",
+            "C. 对噪声鲁棒",
+            "D. 以上都是"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 349,
+        "title": "在关联规则挖掘中，提升度（Lift）大于1表示？",
+        "type": "单选",
+        "options": [
+            "A. 规则前后件正相关",
+            "B. 规则前后件负相关",
+            "C. 规则前后件独立",
+            "D. 无法判断"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 350,
+        "title": "在分类算法中，朴素贝叶斯基于什么假设？",
+        "type": "单选",
+        "options": [
+            "A. 特征之间相互独立",
+            "B. 特征服从正态分布",
+            "C. 特征线性可分",
+            "D. 特征之间相关"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 351,
+        "title": "在聚类评估中，轮廓系数（Silhouette Coefficient）的取值范围是？",
+        "type": "单选",
+        "options": [
+            "A. [-1, 1]",
+            "B. [0, 1]",
+            "C. [-∞, ∞]",
+            "D. [0, ∞]"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 352,
+        "title": "在分类算法中，支持向量机（SVM）试图找到什么？",
+        "type": "单选",
+        "options": [
+            "A. 最大间隔超平面",
+            "B. 最小误差超平面",
+            "C. 决策树",
+            "D. 聚类中心"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 353,
+        "title": "在聚类算法中，常用的算法有？",
+        "type": "多选",
+        "options": [
+            "A. K-Means",
+            "B. DBSCAN",
+            "C. 层次聚类",
+            "D. Apriori"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 354,
+        "title": "在分类问题中，准确率是指预测正确的样本数占总样本数的比例。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 355,
+        "title": "在关联规则挖掘中，支持度表示规则出现的概率，置信度表示规则的可信程度。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 356,
+        "title": "软件验证是指？",
+        "type": "单选",
+        "options": [
+            "A.确认用户需求",
+            "B.验证是否符合设计规范",
+            "C.测试用户体验",
+            "D.优化性能"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 357,
+        "title": "软件确认是指？",
+        "type": "单选",
+        "options": [
+            "A.验证需求",
+            "B.验证是否符合用户预期用途",
+            "C.代码检查",
+            "D.性能测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 358,
+        "title": "“尽早测试”原则说明？",
+        "type": "单选",
+        "options": [
+            "A.测试越晚越好",
+            "B.开发后测试",
+            "C.尽早介入测试",
+            "D.只测一次"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 359,
+        "title": "以下属于测试模型的是？",
+        "type": "单选",
+        "options": [
+            "A.V模型",
+            "B..对象模型",
+            "D.网络模型"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 360,
+        "title": "W模型的特点是？",
+        "type": "单选",
+        "options": [
+            "A.测试后置",
+            "B.测试贯穿全过程",
+            "C.无测试",
+            "D.只测试一次"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 361,
+        "title": "V模型强调？",
+        "type": "单选",
+        "options": [
+            "A.开发测试无关",
+            "B.测试与开发对应",
+            "C.只做系统测试",
+            "D.只做单元测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 362,
+        "title": "以下属于测试阶段分类的是？",
+        "type": "单选",
+        "options": [
+            "A.单元测试",
+            "B.数据库测试",
+            "C.网络测试",
+            "D.UI测试"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 363,
+        "title": "按是否查看代码分类测试包括？",
+        "type": "单选",
+        "options": [
+            "A.黑盒测试",
+            "B.白盒测试",
+            "C.灰盒测试",
+            "D.以上都是"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 364,
+        "title": "缺陷优先级“高”表示？",
+        "type": "单选",
+        "options": [
+            "A.可以延迟",
+            "B.需尽快修复",
+            "C.无需修复",
+            "D.建议优化"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 365,
+        "title": "可靠性属于？",
+        "type": "单选",
+        "options": [
+            "A.测试方法",
+            "B.质量属性",
+            "C.工具",
+            "D.模型"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 366,
+        "title": "软件测试与质量保证关系是？",
+        "type": "单选",
+        "options": [
+            "A.无关系",
+            "B.包含关系",
+            "C.相互独立",
+            "D.对立关系"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 367,
+        "title": "缺陷生命周期不包括？",
+        "type": "单选",
+        "options": [
+            "A.新建",
+            "B.修复",
+            "C.关闭",
+            "D.开发设计"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 368,
+        "title": "缺陷优先级由谁决定？",
+        "type": "单选",
+        "options": [
+            "A.测试人员",
+            "B.项目经理",
+            "C.团队协商",
+            "D.以上都有可能"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 369,
+        "title": "缺陷严重性主要依据？",
+        "type": "单选",
+        "options": [
+            "A.影响程度",
+            "B.开发时间",
+            "C.UI",
+            "D.数据库"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 370,
+        "title": "质量保证主要是？",
+        "type": "单选",
+        "options": [
+            "A.管理活动",
+            "B.测试活动",
+            "C.开发活动",
+            "D.运维活动"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 371,
+        "title": "测试属于？",
+        "type": "单选",
+        "options": [
+            "A.技术活动",
+            "B.管理活动",
+            "C.销售活动",
+            "D.运维活动"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 372,
+        "title": "软件质量保证关注？",
+        "type": "单选",
+        "options": [
+            "A.过程质量",
+            "B.代码数量",
+            "C.UI",
+            "D.数据库"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 373,
+        "title": "测试过程标准用于？",
+        "type": "单选",
+        "options": [
+            "A.规范测试流程",
+            "B.写代码",
+            "C.UI设计",
+            "D.部署"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 374,
+        "title": "测试技术标准用于？",
+        "type": "单选",
+        "options": [
+            "A.指导测试方法",
+            "B.写代码",
+            "C.UI设计",
+            "D.数据库"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 375,
+        "title": "软件质量属性包括？",
+        "type": "多选",
+        "options": [
+            "A.性能",
+            "B.安全",
+            "C.可靠性",
+            "D.维护性"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 376,
+        "title": "测试计划的主要作用是？",
+        "type": "单选",
+        "options": [
+            "A.执行测试",
+            "B.指导测试工作",
+            "C.开发代码",
+            "D.发布系统"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 377,
+        "title": "静态测试的特点是？",
+        "type": "单选",
+        "options": [
+            "A.运行程序",
+            "B.不运行程序",
+            "C.自动执行",
+            "D.负载测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 378,
+        "title": "动态测试是指？",
+        "type": "单选",
+        "options": [
+            "A.代码检查",
+            "B.运行程序测试",
+            "C.文档评审",
+            "D.设计分析"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 379,
+        "title": "黑盒测试特点是？",
+        "type": "单选",
+        "options": [
+            "A.关注代码结构",
+            "B.关注输入输出",
+            "C.关注性能",
+            "D.关注数据库"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 380,
+        "title": "白盒测试主要关注？",
+        "type": "单选",
+        "options": [
+            "A.需求",
+            "B.代码结构",
+            "C.UI界面",
+            "D.数据库"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 381,
+        "title": "等价类划分属于？",
+        "type": "单选",
+        "options": [
+            "A.白盒",
+            "B.黑盒",
+            "C.灰盒",
+            "D.接口测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 382,
+        "title": "边界值分析主要用于？",
+        "type": "单选",
+        "options": [
+            "A.UI测试",
+            "B.边界输入测试",
+            "C.性能测试",
+            "D.安全测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 383,
+        "title": "因果图法用于？",
+        "type": "单选",
+        "options": [
+            "A.逻辑关系分析",
+            "B.UI测试",
+            "C.性能测试",
+            "D.接口测试"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 384,
+        "title": "正交试验法的作用是？",
+        "type": "单选",
+        "options": [
+            "A.减少测试用例",
+            "B.增加测试量",
+            "C.测试UI",
+            "D.检查代码"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 385,
+        "title": "路径覆盖是？",
+        "type": "单选",
+        "options": [
+            "A.部分路径",
+            "B.所有路径执行",
+            "C.UI测试",
+            "D.安全测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 386,
+        "title": "自动化测试的优点是？",
+        "type": "单选",
+        "options": [
+            "A.效率高",
+            "B.成本低",
+            "C.复杂",
+            "D.慢"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 387,
+        "title": "自动化测试适用于？",
+        "type": "单选",
+        "options": [
+            "A.重复测试",
+            "B.一次测试",
+            "C.手工测试",
+            "D.探索测试"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 388,
+        "title": "性能测试的目的是？",
+        "type": "单选",
+        "options": [
+            "A.验证功能",
+            "B.评估性能",
+            "C.界面测试",
+            "D.逻辑分析"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 389,
+        "title": "负载测试是指？",
+        "type": "单选",
+        "options": [
+            "A.极限负载",
+            "B.正常负载",
+            "C.异常负载",
+            "D.安全测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 390,
+        "title": "压力测试是指？",
+        "type": "单选",
+        "options": [
+            "A.正常负载",
+            "B.极限负载",
+            "C.UI测试",
+            "D.功能测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 391,
+        "title": "Web测试包括？",
+        "type": "单选",
+        "options": [
+            "A.功能测试",
+            "B.UI测试",
+            "C.兼容性测试",
+            "D.以上都是"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 392,
+        "title": "安全测试重点是？",
+        "type": "单选",
+        "options": [
+            "A.性能",
+            "B.漏洞",
+            "C.界面",
+            "D.逻辑"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 393,
+        "title": "兼容性测试验证？",
+        "type": "单选",
+        "options": [
+            "A.数据库",
+            "B.不同环境",
+            "C.性能",
+            "D.逻辑"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 394,
+        "title": "数据库测试关注？",
+        "type": "单选",
+        "options": [
+            "A.数据正确性",
+            "B.UI",
+            "C.性能",
+            "D.界面"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 395,
+        "title": "数据完整性是指？",
+        "type": "单选",
+        "options": [
+            "A.数据无误",
+            "B.数据完整一致",
+            "C.UI正确",
+            "D.性能高"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 396,
+        "title": "集成测试主要目的是？",
+        "type": "单选",
+        "options": [
+            "A.验证模块接口",
+            "B.测试UI",
+            "C.性能优化",
+            "D.安全检测"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 397,
+        "title": "验收测试由谁执行？",
+        "type": "单选",
+        "options": [
+            "A.开发人员",
+            "B.测试人员",
+            "C.用户或客户",
+            "D.运维人员"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 398,
+        "title": "回归测试的目的是？",
+        "type": "单选",
+        "options": [
+            "A.测试新功能",
+            "B.验证修改未影响原功能",
+            "C.测试性能",
+            "D.测试安全"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 399,
+        "title": "冒烟测试主要用于？",
+        "type": "单选",
+        "options": [
+            "A.详细测试",
+            "B.初步验证系统可用性",
+            "C.性能测试",
+            "D.安全测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 400,
+        "title": "异常测试关注？",
+        "type": "单选",
+        "options": [
+            "A.正常流程",
+            "B.异常输入情况",
+            "C.UI设计",
+            "D.数据库结构"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 401,
+        "title": "边界值分析常用于？",
+        "type": "单选",
+        "options": [
+            "A.中间值测试",
+            "B.边界输入测试",
+            "C.UI测试",
+            "D.接口测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 402,
+        "title": "语句覆盖率是指？",
+        "type": "单选",
+        "options": [
+            "A.执行语句比例",
+            "B.测试用例数",
+            "C.路径数",
+            "D.接口数"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 403,
+        "title": "路径覆盖难度较高原因？",
+        "type": "单选",
+        "options": [
+            "A.路径数量多",
+            "B.UI复杂",
+            "C.数据库复杂",
+            "D.代码少"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 404,
+        "title": "白盒测试适用于？",
+        "type": "单选",
+        "options": [
+            "A.接口逻辑验证",
+            "B.UI测试",
+            "C.兼容性测试",
+            "D.性能测试"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 405,
+        "title": "自动化测试工具的作用？",
+        "type": "单选",
+        "options": [
+            "A.替代开发",
+            "B.提高测试效率",
+            "C.减少需求",
+            "D.替代设计"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 406,
+        "title": "吞吐量指？",
+        "type": "单选",
+        "options": [
+            "A.单位时间处理请求数",
+            "B.页面数量",
+            "C.用户数量",
+            "D.代码量"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 407,
+        "title": "Web兼容性测试主要针对？",
+        "type": "单选",
+        "options": [
+            "A.不同浏览器",
+            "B.数据库",
+            "C.接口",
+            "D.代码"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 408,
+        "title": "SQL注入属于？",
+        "type": "单选",
+        "options": [
+            "A.性能问题",
+            "B.安全漏洞",
+            "C.UI问题",
+            "D.兼容问题"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 409,
+        "title": "XSS攻击属于？",
+        "type": "单选",
+        "options": [
+            "A.性能测试",
+            "B.安全测试",
+            "C.兼容测试",
+            "D.UI测试"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 410,
+        "title": "数据安全测试关注？",
+        "type": "单选",
+        "options": [
+            "A.数据保护",
+            "B.UI",
+            "C.性能",
+            "D.逻辑"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 411,
+        "title": "测试环境包括？",
+        "type": "单选",
+        "options": [
+            "A.硬件和软件环境",
+            "B.代码",
+            "C.UI",
+            "D.文档"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 412,
+        "title": "测试数据准备的目的是？",
+        "type": "单选",
+        "options": [
+            "A.执行测试",
+            "B.保证测试有效性",
+            "C.开发代码",
+            "D.UI设计"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 413,
+        "title": "测试监控的作用是？",
+        "type": "单选",
+        "options": [
+            "A.控制测试进度",
+            "B.写代码",
+            "C.设计数据库",
+            "D.UI设计"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 414,
+        "title": "测试完成阶段输出？",
+        "type": "单选",
+        "options": [
+            "A.测试报告",
+            "B.代码",
+            "C.UI",
+            "D.数据库"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 415,
+        "title": "以下属于黑盒测试方法的是？",
+        "type": "多选",
+        "options": [
+            "A.等价类划分",
+            "B.边界值分析",
+            "C.因果图法",
+            "D.语句覆盖"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 416,
+        "title": "软件测试阶段包括？",
+        "type": "多选",
+        "options": [
+            "A.单元测试",
+            "B.集成测试",
+            "C.系统测试",
+            "D.验收测试"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 417,
+        "title": "性能测试类型包括？",
+        "type": "多选",
+        "options": [
+            "A.负载测试",
+            "B.压力测试",
+            "C.稳定性测试",
+            "D.功能测试"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 418,
+        "title": "数据层测试策略包括？",
+        "type": "多选",
+        "options": [
+            "A.安全性",
+            "B.性能",
+            "C.完整性",
+            "D.可靠性"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 419,
+        "title": "动态测试过程包括？",
+        "type": "多选",
+        "options": [
+            "A.设计",
+            "B.执行",
+            "C.监控",
+            "D.完成"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 420,
+        "title": "测试计划内容包括？",
+        "type": "多选",
+        "options": [
+            "A.范围",
+            "B.资源",
+            "C.进度",
+            "D.策略"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 421,
+        "title": "安全测试包括？",
+        "type": "多选",
+        "options": [
+            "A.权限控制",
+            "B.数据保护",
+            "C.攻击防护",
+            "D.UI测试"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 422,
+        "title": "白盒测试关注内部逻辑。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 423,
+        "title": "压力测试属于性能测试。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 424,
+        "title": "测试计划用于指导测试执行。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 425,
+        "title": "边界值分析属于黑盒测试方法。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 426,
+        "title": "以下哪项是信息安全保障的基础？",
+        "type": "单选",
+        "options": [
+            "技术产品",
+            "安全策略",
+            "安全意识",
+            "安全培训"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 427,
+        "title": "信息安全保障体系中，如何平衡安全需求与业务发展需求？",
+        "type": "单选",
+        "options": [
+            "优先满足安全需求",
+            "优先满足业务需求",
+            "进行风险评估后平衡",
+            "根据领导意愿决定"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 428,
+        "title": "以下哪项不属于信息安全保障的技术层面措施？",
+        "type": "单选",
+        "options": [
+            "防火墙部署",
+            "安全策略制定",
+            "入侵检测系统",
+            "数据加密"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 429,
+        "title": "信息安全保障中的“纵深防御”策略强调什么？",
+        "type": "单选",
+        "options": [
+            "单一强大的防御措施",
+            "多层防御措施的协同",
+            "只关注网络边界防御",
+            "只关注终端防御"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 430,
+        "title": "以下哪项不属于信息安全保障体系的组成部分？",
+        "type": "单选",
+        "options": [
+            "技术体系",
+            "管理体系",
+            "人员体系",
+            "销售体系"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 431,
+        "title": "在信息安全保障体系建设中，以下哪项最能体现“以人为本”的思想？",
+        "type": "单选",
+        "options": [
+            "部署先进安全设备",
+            "制定完善安全制度",
+            "加强安全意识培训",
+            "定期进行安全审计"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 432,
+        "title": "纵深防御策略强调在信息系统的各个层面都建立防御措施，而不是依赖单一防御点。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 433,
+        "title": "信息安全保障体系应该与业务发展相适应，而不是一成不变的。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 434,
+        "title": "在公钥密码体系中，私钥的主要作用是？",
+        "type": "单选",
+        "options": [
+            "加密数据",
+            "解密数据",
+            "分发公钥",
+            "验证签名"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 435,
+        "title": "网络隔离技术的主要目的是？",
+        "type": "单选",
+        "options": [
+            "提高网络性能",
+            "防止不同网络间的安全威胁传播",
+            "增加网络容量",
+            "简化网络管理"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 436,
+        "title": "以下哪种技术可以实现数据的完整性校验？",
+        "type": "单选",
+        "options": [
+            "AES加密",
+            "MD5哈希",
+            "VPN隧道",
+            "RSA签名"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 437,
+        "title": "VPN技术主要用于解决什么问题？",
+        "type": "单选",
+        "options": [
+            "提高网络速度",
+            "保障远程访问安全",
+            "增加网络带宽",
+            "检测网络攻击"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 438,
+        "title": "以下哪项不属于网络安全技术？",
+        "type": "单选",
+        "options": [
+            "VPN",
+            "防火墙",
+            "数据备份",
+            "入侵防御"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 439,
+        "title": "安全审计技术的核心价值在于？",
+        "type": "单选",
+        "options": [
+            "实时阻止攻击",
+            "事后追溯责任",
+            "提高系统性能",
+            "加密敏感数据"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 440,
+        "title": "数据备份的主要目的是？",
+        "type": "单选",
+        "options": [
+            "提高访问速度",
+            "防止数据丢失",
+            "增加存储容量",
+            "加密数据"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 441,
+        "title": "入侵检测系统（IDS）的主要作用是？",
+        "type": "单选",
+        "options": [
+            "阻止入侵行为",
+            "检测入侵行为",
+            "修复系统漏洞",
+            "加密数据传输"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 442,
+        "title": "以下哪种加密算法属于对称加密算法？",
+        "type": "单选",
+        "options": [
+            "RSA",
+            "AES",
+            "ECC",
+            "DSA"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 443,
+        "title": "网络安全防护技术包括以下哪些？",
+        "type": "多选",
+        "options": [
+            "防火墙",
+            "入侵检测",
+            "数据备份",
+            "病毒防护",
+            "访问控制"
+        ],
+        "answer": "ABDE"
+    },
+    {
+        "id": 444,
+        "title": "以下哪些属于身份认证技术？",
+        "type": "多选",
+        "options": [
+            "密码认证",
+            "指纹识别",
+            "智能卡认证",
+            "IP地址认证"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 445,
+        "title": "对称加密算法的加密和解密使用相同的密钥。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 446,
+        "title": "防火墙可以完全阻止所有网络攻击。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 447,
+        "title": "信息安全管理体系认证中，最常用的标准是？",
+        "type": "单选",
+        "options": [
+            "ISO 9001",
+            "ISO 27001",
+            "ISO 14001",
+            "ISO 45001"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 448,
+        "title": "信息安全事件管理的首要步骤是？",
+        "type": "单选",
+        "options": [
+            "事件响应",
+            "事件检测",
+            "事件报告",
+            "事件分析"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 449,
+        "title": "在信息安全管理中，如何平衡安全需求与用户便利性？",
+        "type": "单选",
+        "options": [
+            "优先考虑安全",
+            "优先考虑便利性",
+            "找到合理平衡点",
+            "根据领导指示决定"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 450,
+        "title": "信息安全风险管理的第一步是？",
+        "type": "单选",
+        "options": [
+            "风险评估",
+            "风险处理",
+            "风险监控",
+            "风险沟通"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 451,
+        "title": "信息安全责任制的核心是？",
+        "type": "单选",
+        "options": [
+            "明确责任主体",
+            "购买安全产品",
+            "制定安全制度",
+            "进行安全审计"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 452,
+        "title": "风险评估中，风险值的计算通常基于什么？",
+        "type": "单选",
+        "options": [
+            "威胁发生概率",
+            "影响程度",
+            "威胁概率和影响程度",
+            "漏洞数量"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 453,
+        "title": "信息安全管理体系的核心是？",
+        "type": "单选",
+        "options": [
+            "安全技术",
+            "安全制度",
+            "安全人员",
+            "安全设备"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 454,
+        "title": "以下哪项不属于信息安全管理的内容？",
+        "type": "单选",
+        "options": [
+            "安全策略制定",
+            "安全产品采购",
+            "安全组织建设",
+            "安全人员培训"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 455,
+        "title": "最小权限原则要求给用户分配完成工作所必需的最小权限，不多也不少。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 456,
+        "title": "信息安全风险管理的目标是消除所有安全风险。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 457,
+        "title": "信息安全管理只需要制定完善的制度即可，不需要技术支持。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 458,
+        "title": "网络安全法规定，网络运营者应当对其收集的用户信息采取什么措施？",
+        "type": "单选",
+        "options": [
+            "公开披露",
+            "加密保护",
+            "随意使用",
+            "出售获利"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 459,
+        "title": "网络安全事件发生后，网络运营者向有关主管部门报告的时限要求是？",
+        "type": "单选",
+        "options": [
+            "立即报告",
+            "24小时内",
+            "48小时内",
+            "72小时内"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 460,
+        "title": "在跨境数据传输中，应当遵守的核心原则是？",
+        "type": "单选",
+        "options": [
+            "自由传输原则",
+            "安全保障原则",
+            "无需审批原则",
+            "随意选择原则"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 461,
+        "title": "以下哪项不属于个人信息保护法规定的个人信息处理规则？",
+        "type": "单选",
+        "options": [
+            "取得个人同意",
+            "遵循最小必要原则",
+            "确保信息准确",
+            "可以随意共享"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 462,
+        "title": "以下哪项不属于关键信息基础设施的范围？",
+        "type": "单选",
+        "options": [
+            "能源领域的关键系统",
+            "金融领域的关键系统",
+            "个人家庭计算机",
+            "交通领域的关键系统"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 463,
+        "title": "我国专门规范网络安全的基本法律是？",
+        "type": "单选",
+        "options": [
+            "《网络安全法》",
+            "《数据安全法》",
+            "《个人信息保护法》",
+            "《电子商务法》"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 464,
+        "title": "《网络安全法》规定，关键信息基础设施的运营者应当自行或者委托网络安全服务机构对其网络的安全性和可能存在的风险多久进行一次检测评估？",
+        "type": "单选",
+        "options": [
+            "每月一次",
+            "每季度一次",
+            "每半年一次",
+            "每年一次"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 465,
+        "title": "我国网络安全相关的主要法律法规包括以下哪些？",
+        "type": "多选",
+        "options": [
+            "《网络安全法》",
+            "《数据安全法》",
+            "《个人信息保护法》",
+            "《刑法》相关条款"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 466,
+        "title": "根据《网络安全法》，网络运营者留存相关网络日志的期限不得少于多久？",
+        "type": "单选",
+        "options": [
+            "3个月",
+            "6个月",
+            "12个月",
+            "24个月"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 467,
+        "title": "《数据安全法》规定国家对数据实行的核心保护制度是？",
+        "type": "单选",
+        "options": [
+            "分类分级保护",
+            "全量加密保护",
+            "集中存储保护",
+            "备案登记保护"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 468,
+        "title": "《数据安全法》规定，重要数据的处理者应当明确以下哪类岗位落实保护责任？",
+        "type": "单选",
+        "options": [
+            "数据安全负责人",
+            "网络运维工程师",
+            "产品经理",
+            "行政管理员"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 469,
+        "title": "《个人信息保护法》中，处理不满多少周岁未成年人个人信息，需取得监护人同意？",
+        "type": "单选",
+        "options": [
+            "10 周岁",
+            "12 周岁",
+            "14 周岁",
+            "16 周岁"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 470,
+        "title": "根据《网络安全法》，关键信息基础设施运营者对其网络的安全性检测评估频率至少为？",
+        "type": "单选",
+        "options": [
+            "每半年一次",
+            "每年一次",
+            "每两年一次",
+            "每三年一次"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 471,
+        "title": "《个人信息保护法》规定，个人信息处理者利用自动化决策进行商业营销时，应当？",
+        "type": "单选",
+        "options": [
+            "提高营销精准度",
+            "提供不针对个人特征的选项",
+            "仅向高价值用户推送",
+            "无需告知用户"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 472,
+        "title": "根据《网络安全法》，关键信息基础设施运营者在境内收集的个人信息和重要数据，原则上应当？",
+        "type": "单选",
+        "options": [
+            "向境外云服务商备份",
+            "在境内存储",
+            "加密后传输至海外",
+            "委托第三方机构托管"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 473,
+        "title": "以下属于《个人信息保护法》中敏感个人信息处理要求的有？",
+        "type": "多选",
+        "options": [
+            "取得个人单独同意",
+            "告知处理的必要性",
+            "采取严格保护措施",
+            "无需留存处理记录"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 474,
+        "title": "以下哪项不属于软件安全测试的方法？",
+        "type": "单选",
+        "options": [
+            "黑盒测试",
+            "白盒测试",
+            "灰盒测试",
+            "硬件压力测试"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 475,
+        "title": "软件安全开发生命周期（SDL）的主要作用是？",
+        "type": "单选",
+        "options": [
+            "加快开发进度",
+            "在整个开发过程中融入安全措施",
+            "降低开发成本",
+            "增加软件功能"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 476,
+        "title": "软件安全开发中，威胁建模的主要作用是？",
+        "type": "单选",
+        "options": [
+            "识别潜在的安全威胁",
+            "编写安全测试用例",
+            "生成安全报告",
+            "部署安全设备"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 477,
+        "title": "以下哪项不是软件安全代码审查的主要目的？",
+        "type": "单选",
+        "options": [
+            "发现潜在的安全漏洞",
+            "确保代码符合安全编码规范",
+            "评估代码执行效率",
+            "验证安全控制措施的有效性"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 478,
+        "title": "以下哪项是软件安全需求分析阶段的主要工作？",
+        "type": "单选",
+        "options": [
+            "编写代码",
+            "确定安全目标和要求",
+            "测试软件功能",
+            "部署软件系统"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 479,
+        "title": "在软件安全开发中，如何平衡安全需求与开发进度？",
+        "type": "单选",
+        "options": [
+            "优先保证安全",
+            "优先保证进度",
+            "根据风险评估结果合理平衡",
+            "根据开发人员意愿决定"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 480,
+        "title": "第三方软件组件的安全风险主要在于？",
+        "type": "单选",
+        "options": [
+            "组件功能不足",
+            "组件性能较差",
+            "组件可能存在未知漏洞",
+            "组件价格较高"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 481,
+        "title": "以下哪项不属于软件安全开发的基本环节？",
+        "type": "单选",
+        "options": [
+            "需求分析",
+            "安全设计",
+            "漏洞扫描",
+            "硬件采购"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 482,
+        "title": "软件安全开发的核心目标是？",
+        "type": "单选",
+        "options": [
+            "提高开发速度",
+            "减少开发成本",
+            "在开发过程中消除安全漏洞",
+            "增加功能数量"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 483,
+        "title": "软件安全测试与普通功能测试的主要区别在于？",
+        "type": "单选",
+        "options": [
+            "测试工具不同",
+            "测试目的不同",
+            "测试人员不同",
+            "测试时间不同"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 484,
+        "title": "软件安全开发生命周期（SDL）中，哪个阶段最重要？",
+        "type": "单选",
+        "options": [
+            "需求分析阶段",
+            "设计阶段",
+            "编码阶段",
+            "每个阶段都重要"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 485,
+        "title": "软件安全设计阶段不应该考虑的因素是？",
+        "type": "单选",
+        "options": [
+            "安全架构",
+            "加密方案",
+            "访问控制",
+            "用户界面美观度"
+        ],
+        "answer": "D"
+    },
+    {
+        "id": 486,
+        "title": "项目经理正在制定项目管理计划，发现类似项目的历史数据和模板都存放在公司的内部知识库中。这些资料属于哪类输入？",
+        "type": "单选",
+        "options": [
+            "事业环境因素",
+            "组织过程资产",
+            "采购文件",
+            "项目章程"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 487,
+        "title": "项目经理在制定进度计划时，希望识别出哪些任务是不能延误的。他应该使用哪种技术？",
+        "type": "单选",
+        "options": [
+            "资源平衡",
+            "关键路径法（CPM）",
+            "蒙特卡洛分析",
+            "类比估算"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 488,
+        "title": "某数智化项目中，项目经理发现一个供应商提供的接口文档不完整，导致开发团队进度受阻。这属于哪类风险管理动作？",
+        "type": "单选",
+        "options": [
+            "风险规避",
+            "问题解决（Issue Resolution），因为风险已经发生",
+            "风险转移",
+            "风险回避"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 489,
+        "title": "敏捷团队在拆解Epic时，发现一个用户故事过于庞大，无法在一个Sprint内完成。团队应该怎么做？",
+        "type": "单选",
+        "options": [
+            "跳过这个用户故事",
+            "将该故事拆分为更小的、可在一个Sprint内完成的故事",
+            "延长Sprint时长",
+            "分配更多人手强行完成"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 490,
+        "title": "项目进度报告显示，某活动已延误两天，但该活动有三天的总浮动时间。项目经理应如何判断？",
+        "type": "单选",
+        "options": [
+            "立即启动危机应对",
+            "该延误尚在可容忍范围内，不影响关键路径，持续监控即可",
+            "重新制定项目基准",
+            "向客户上报延期"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 491,
+        "title": "数智化团队刚完成一个AI模型的开发，准备上线。项目经理建议先在5%的用户群上试运行，观察效果后再全量推广。这体现了哪种风险策略？",
+        "type": "单选",
+        "options": [
+            "风险回避",
+            "风险转移",
+            "风险减轻（通过灰度发布降低大规模失败的影响）",
+            "被动接受风险"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 492,
+        "title": "一个Scrum团队连续两个Sprint都没有完成承诺的所有故事。产品负责人要求追责。Scrum Master应如何引导？",
+        "type": "单选",
+        "options": [
+            "追究责任人",
+            "在回顾会上分析根本原因（如估算不准、依赖未解决、外部干扰等），制定改进措施",
+            "解散团队重新组建",
+            "缩短Sprint时长"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 493,
+        "title": "项目经理在规划阶段意识到项目使用了一种新技术，团队成员都没有经验。她应该如何在风险登记册中处理这个信息？",
+        "type": "单选",
+        "options": [
+            "不需要记录，这是正常情况",
+            "将其作为风险登记，评估概率和影响，并制定相应应对措施（如培训、引入专家）",
+            "等出了问题再登记",
+            "直接更换技术方案"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 494,
+        "title": "项目经理想了解项目中哪项工作延误会对完工日期影响最大。他应该关注哪条路径？",
+        "type": "单选",
+        "options": [
+            "资源消耗最多的路径",
+            "持续时间最短的路径",
+            "关键路径（总浮动时间为零的路径）",
+            "依赖关系最复杂的路径"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 495,
+        "title": "项目经理在执行阶段发现，实际工作与项目管理计划存在偏差。他应该首先采取什么措施？",
+        "type": "单选",
+        "options": [
+            "立即更新基准以匹配实际情况",
+            "分析偏差原因，实施纠正措施或启动变更控制流程",
+            "忽略小偏差继续执行",
+            "向发起人汇报并等待指示"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 496,
+        "title": "项目经理收到一份已审批的变更请求，需要将其落实到相关项目文件。下一步应该更新哪些内容？",
+        "type": "单选",
+        "options": [
+            "只更新项目日志",
+            "更新受影响的项目管理计划组件和项目文件，确保变更被完整落实",
+            "等项目结束后统一更新",
+            "仅口头通知团队成员"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 497,
+        "title": "数智化项目团队采用持续集成（CI），每次代码提交后自动运行测试。某次提交后，自动化测试失败。团队应该立即做什么？",
+        "type": "单选",
+        "options": [
+            "忽略失败，继续提交新代码",
+            "立即停止其他提交，修复失败的构建，恢复主干稳定",
+            "等到Sprint结束再统一修复",
+            "将测试失败的代码回滚到上一版本后继续工作"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 498,
+        "title": "在敏捷项目中，产品负责人希望在下一个Sprint中同时推进5个高优先级功能，但团队容量只够完成3个。应该怎么办？",
+        "type": "单选",
+        "options": [
+            "团队加班完成5个功能",
+            "产品负责人从5个中选出最重要的3个，其余放入Backlog",
+            "将5个功能各完成50%",
+            "增加团队人员"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 499,
+        "title": "项目经理发现两名团队成员因工作分工不清而产生矛盾，影响了团队协作。最根本的解决方式是什么？",
+        "type": "单选",
+        "options": [
+            "各打五十大板，要求双方道歉",
+            "明确两人各自的职责和工作边界，消除职责重叠或空白",
+            "调走其中一名成员",
+            "忽略矛盾，等自然化解"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 500,
+        "title": "某数智化项目正在做系统集成测试，测试环境与生产环境存在较大差异，导致测试通过但上线后频繁出错。这属于哪类项目问题？",
+        "type": "单选",
+        "options": [
+            "团队能力不足",
+            "质量管理问题——测试环境与生产环境不一致，影响质量保证的有效性",
+            "进度管理失误",
+            "干系人沟通不畅"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 501,
+        "title": "项目经理在规划沟通时，发现项目有25名干系人。理论上最多需要管理多少条沟通渠道？",
+        "type": "单选",
+        "options": [
+            "25条",
+            "300条",
+            "600条",
+            "50条"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 502,
+        "title": "某项目当前数据：PV=500万，EV=400万，AC=480万。以下判断正确的是？",
+        "type": "单选",
+        "options": [
+            "进度超前且成本节省",
+            "进度落后且成本超支",
+            "进度超前但成本超支",
+            "进度落后但成本节省"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 503,
+        "title": "项目经理面临进度滞后，考虑采用【赶工（Crashing）】加快进度。以下哪种情况最适合使用赶工？",
+        "type": "单选",
+        "options": [
+            "关键路径上有活动可以并行执行",
+            "关键路径上有活动可以通过增加资源缩短工期，且额外成本在可接受范围内",
+            "非关键路径活动延误",
+            "团队成员数量不足"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 504,
+        "title": "某敏捷团队的速度（Velocity）过去4个Sprint分别为：32、28、34、30点。产品负责人问还需要多少个Sprint能完成剩余的Backlog（约300点）。最合理的估算是多少？",
+        "type": "单选",
+        "options": [
+            "约8个Sprint",
+            "约10个Sprint",
+            "约6个Sprint",
+            "约15个Sprint"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 505,
+        "title": "项目经理发现，某高影响力干系人对项目成功至关重要，但目前处于【了解但不支持】状态。最合适的干系人管理策略是什么？",
+        "type": "单选",
+        "options": [
+            "保持现状，不打扰",
+            "定期向其汇报项目收益，针对其关切主动沟通，争取转化为支持者",
+            "减少该干系人的信息获取",
+            "将其从项目相关方列表中移除"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 506,
+        "title": "数智化项目在进行需求分析时，业务部门和技术部门对同一功能的理解存在根本性分歧。项目经理应如何处理？",
+        "type": "单选",
+        "options": [
+            "以技术部门的理解为准",
+            "以业务部门的理解为准",
+            "组织双方联合澄清会议，通过原型或用例达成一致，并文档化",
+            "推迟需求确认到开发阶段"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 507,
+        "title": "某Scrum团队在回顾会上识别出3个改进项，但上一个Sprint的3个改进项没有一个被落实。Scrum Master应如何应对？",
+        "type": "单选",
+        "options": [
+            "继续列出新的改进项，期待下次执行",
+            "不再新增改进项，先将前一个Sprint的改进项纳入下一个Sprint的计划，作为正式任务执行",
+            "取消回顾会议",
+            "向管理层汇报团队不作为"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 508,
+        "title": "项目BAC=1000万，当前EV=600万，AC=700万，预计剩余工作将按当前CPI绩效水平完成，EAC最接近哪个值？",
+        "type": "单选",
+        "options": [
+            "1100万",
+            "1167万",
+            "1050万",
+            "900万"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 509,
+        "title": "项目经理在风险应对规划时，对于一个发生概率极低但一旦发生损失极大的风险，最合适的应对策略是什么？",
+        "type": "单选",
+        "options": [
+            "忽略该风险",
+            "主动规避或购买保险转移，同时制定应急预案以备快速响应",
+            "立即启动应对措施",
+            "将该风险降低为低优先级"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 510,
+        "title": "某数智化项目采用混合方法：合规文档采用瀑布方式管理，产品功能开发采用Scrum迭代。项目经理发现两条线的进度对齐困难。以下哪种机制最有助于协调？",
+        "type": "单选",
+        "options": [
+            "放弃混合方法，全部改用瀑布",
+            "设立集成里程碑节点，确保敏捷迭代的交付物与瀑布阶段的文档节点对齐",
+            "让两条线完全独立运作",
+            "只关注敏捷侧的进度"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 511,
+        "title": "项目进入后期，客户突然要求将原计划三个月后交付的功能提前到一个月内交付。项目经理评估后认为需要大量加班或增加人员。他应该如何回应？",
+        "type": "单选",
+        "options": [
+            "立即承诺，以客户满意为先",
+            "告知客户提前交付的可行性，并列出所需额外资源和成本，由客户与发起人共同决策是否批准",
+            "拒绝客户要求",
+            "推迟整个项目交付"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 512,
+        "title": "某数智化项目团队在进行Sprint评审时，客户频繁对已演示的功能提出推翻性意见，导致大量返工。项目经理应如何解决这个问题？",
+        "type": "单选",
+        "options": [
+            "减少Sprint评审频率",
+            "在Sprint过程中引入客户，做中期演示提早获取反馈，避免在评审时才暴露大偏差",
+            "更换沟通频道，改用文档审批方式",
+            "要求客户签署需求冻结协议"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 513,
+        "title": "项目经理采用三点估算法（PERT）进行工期估算，某活动乐观工期=3天，最可能工期=6天，悲观工期=15天，PERT期望值是多少？",
+        "type": "单选",
+        "options": [
+            "8天",
+            "7天",
+            "6天",
+            "9天"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 514,
+        "title": "某数智化项目存在多个关键路径，项目经理应如何管理？",
+        "type": "单选",
+        "options": [
+            "只关注最短的那条",
+            "多条关键路径意味着更高的进度风险，需要对所有关键路径上的活动加强监控",
+            "忽略多路径问题",
+            "合并所有关键路径为一条"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 515,
+        "title": "某项目的质量审计发现，团队在执行阶段跳过了代码审查流程，导致线上缺陷率上升。这属于哪类质量问题？",
+        "type": "单选",
+        "options": [
+            "质量控制不足（缺陷检出率低）",
+            "质量保证不足（过程合规性差，未遵循既定流程）",
+            "需求管理问题",
+            "干系人沟通问题"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 516,
+        "title": "项目团队成员因为担心被追责而不愿报告真实的项目问题。项目经理应如何建立健康的团队文化？",
+        "type": "单选",
+        "options": [
+            "加强考核，增加追责力度",
+            "营造心理安全感，明确传达【暴露问题是解决问题的第一步】，鼓励团队坦诚沟通",
+            "减少项目会议频率",
+            "将不汇报问题的成员调离"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 517,
+        "title": "某项目团队同时负责两个项目，资源共享导致成员疲于奔命，哪个项目都做不好。从项目集管理视角，正确的处理方式是什么？",
+        "type": "单选",
+        "options": [
+            "让成员自行决定优先级",
+            "项目集经理根据战略优先级明确两个项目的资源分配顺序，并与各项目经理沟通调整计划",
+            "关闭其中一个项目",
+            "增加所有人的工作时长"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 518,
+        "title": "数智化团队在敏捷交付中，发现每次上线都需要大量手动操作，出错率高且耗时长。从DevOps视角，最优先的改进方向是什么？",
+        "type": "单选",
+        "options": [
+            "增加测试人员",
+            "加强手动上线流程的培训",
+            "建立自动化部署流水线（CD），减少人工干预",
+            "缩短每次上线的功能数量"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 519,
+        "title": "项目经理在复杂的数智化项目启动阶段，面对大量不确定的需求，最合理的规划策略是什么？",
+        "type": "单选",
+        "options": [
+            "等所有需求确认后再规划",
+            "一次性详细规划整个项目所有工作",
+            "采用滚动式规划，对近期迭代详细规划，对远期保持高层次规划，随项目推进逐步细化",
+            "直接进入开发，边做边规划"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 520,
+        "title": "某项目中，项目经理与职能经理在资源分配上发生分歧：职能经理认为核心工程师应该优先保障部门日常工作。在强矩阵型组织中，这种冲突通常如何解决？",
+        "type": "单选",
+        "options": [
+            "职能经理优先",
+            "项目经理优先，因为强矩阵中项目经理权力大于职能经理",
+            "通过协商达成共识，必要时上报高层仲裁",
+            "由工程师自行决定"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 521,
+        "title": "敏捷项目中，团队速度（Velocity）在过去5个Sprint内持续波动，忽高忽低。这最可能说明什么问题？",
+        "type": "单选",
+        "options": [
+            "团队很努力",
+            "估算方法不一致，或Sprint期间频繁发生外部干扰，影响了团队节奏的稳定性",
+            "这是正常现象",
+            "产品负责人优先级频繁变化"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 522,
+        "title": "数智化项目在上线前一周，测试团队发现了一个严重缺陷，修复需要4天但可能影响已通过测试的其他模块。项目经理面临：按时上线但存在已知风险，还是延期上线。应如何决策？",
+        "type": "单选",
+        "options": [
+            "直接按时上线，缺陷可以上线后修复",
+            "直接延期上线",
+            "召集相关方（技术负责人、业务方、发起人）评估缺陷的业务影响和延期代价，共同决策",
+            "要求测试团队重新评估，将缺陷降级"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 523,
+        "title": "已知项目数据：BAC=500万，EV=300万，AC=350万，PV=380万。若预测完工时，剩余工作将恢复按计划效率（CPI=1）完成，ETC和EAC分别是多少？",
+        "type": "单选",
+        "options": [
+            "ETC=200万，EAC=550万",
+            "ETC=200万，EAC=500万",
+            "ETC=180万，EAC=530万",
+            "ETC=150万，EAC=500万"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 524,
+        "title": "项目经理在做完工预测时发现：若按当前CPI预测EAC，超出预算15%；若按初始计划效率（CPI=1）预测，只超5%。她应该选择哪种预测方式上报管理层？",
+        "type": "单选",
+        "options": [
+            "选超出较少的，给管理层好消息",
+            "选超出较多的，保守为主",
+            "根据对项目未来绩效的合理判断选择最合适的方式，向管理层如实说明两种预测的前提假设和依据",
+            "随机选择一种"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 525,
+        "title": "某数智化项目因需求频繁变化，采用Scrum后团队认为Product Backlog需求太多、优先级不清晰，导致Sprint规划困难。产品负责人应采取哪种改进措施？",
+        "type": "单选",
+        "options": [
+            "将所有需求都放入一个Sprint",
+            "定期做Backlog Refinement（精化），与团队澄清需求细节、拆分过大故事、明确验收条件，保持Backlog处于就绪状态",
+            "减少Backlog中的需求数量",
+            "由项目经理决定优先级"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 526,
+        "title": "项目发起人要求压缩项目工期30%，但不增加预算。项目经理评估后认为，在现有预算约束下，最多只能压缩15%。以下最能体现项目经理职业道德和能力的做法是什么？",
+        "type": "单选",
+        "options": [
+            "直接答应，以满足发起人要求",
+            "以数据和分析为依据，向发起人说明30%压缩的不可行性，提出可行方案（如15%压缩方案或扩大预算的影响分析）并协商",
+            "私下安排团队加班强行完成",
+            "提交辞职"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 527,
+        "title": "数智化项目团队在连续交付中积累了大量技术债务，但管理层认为技术债务不影响业务交付，不愿意投入时间处理。项目经理应如何处理这一分歧？",
+        "type": "单选",
+        "options": [
+            "接受管理层意见，继续交付功能",
+            "用数据说明技术债务对未来速度和质量的量化影响，建议将偿还技术债务纳入项目计划并获得管理层认可",
+            "秘密安排团队在业务Sprint中偷偷处理",
+            "等项目结束后再统一解决"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 528,
+        "title": "某数智化项目采用敏捷方式，但客户坚持要求签订固定价格、固定范围的合同。这与敏捷【拥抱变化】的原则产生矛盾。项目经理应如何处理？",
+        "type": "单选",
+        "options": [
+            "拒绝使用敏捷",
+            "接受固定合同，内部用敏捷但对外按瀑布汇报",
+            "与客户探讨【目标固定、范围灵活】的合同模式（如固定迭代时间盒+优先级灵活调整），或采用成本加激励型合同",
+            "要求客户改变合同方式"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 529,
+        "title": "项目经理发现，在整个项目执行过程中，实际的CPI保持在0.82左右几乎没有变化。预测完工时，以下哪种EAC计算逻辑最为可靠？",
+        "type": "单选",
+        "options": [
+            "EAC = BAC（项目按原预算完成）",
+            "EAC = AC + ETC（剩余工作按计划效率）",
+            "EAC = BAC / CPI（剩余工作按当前CPI效率）",
+            "EAC = AC + BAC - EV（乐观估算）"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 530,
+        "title": "数智化团队负责一个AI推荐系统项目，需求高度不确定，但客户要求每季度看到可演示的成果。同时公司内部有严格的IT安全和架构审批流程。最合适的项目交付方式是什么？",
+        "type": "单选",
+        "options": [
+            "纯瀑布：等所有需求确认后再开发",
+            "纯Scrum：完全忽略审批流程",
+            "混合方法：架构设计和安全审批用瀑布阶段完成，功能开发和演示用敏捷迭代实现，设置季度里程碑对齐",
+            "跳过演示，直接最终交付"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 531,
+        "title": "项目收尾时，客户拒绝签署验收文件，声称产品与合同描述不符，但项目经理认为产品满足了合同要求。以下应对策略最符合专业实践的是什么？",
+        "type": "单选",
+        "options": [
+            "宣布项目完成，不理会客户",
+            "立即承认问题并重做",
+            "对照合同条款逐项核对实际交付物，若有实质差距则制定纠正计划；若满足合同要求则提请争议解决机制（如仲裁）并保留完整证据",
+            "直接走法律途径"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 532,
+        "title": "某数智化项目已进入测试阶段，发现一个架构缺陷需要返工两个关键模块，预计影响进度3周。项目经理应如何处理这一情况？",
+        "type": "单选",
+        "options": [
+            "隐瞒缺陷，寻找变通方案上线",
+            "立即向干系人透明披露，评估技术方案（修复vs绕行），分析对范围、进度、成本的影响，提交变更请求并推动审批",
+            "直接裁员开除责任人",
+            "推迟到项目后期再处理"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 533,
+        "title": "数智化项目部署了新的AI决策系统，上线后发现模型对特定用户群体产生了系统性偏差，影响了服务公平性。项目经理在项目规划阶段本可以采取什么措施来预防这一风险？",
+        "type": "单选",
+        "options": [
+            "只要技术实现正确，业务公平性不是项目管理问题",
+            "将AI模型偏差作为项目风险识别，要求在测试计划中增加公平性测试和偏差评估，设定上线前的偏差阈值标准",
+            "上线后再处理投诉",
+            "完全依赖算法团队自行判断"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 534,
+        "title": "以下哪些情形属于需要走正式变更控制流程的情况？（多选）",
+        "type": "多选",
+        "options": [
+            "将项目完工日期推迟两个月",
+            "增加一个原计划外的主要功能",
+            "将某文档的字体从12号改为11号",
+            "削减项目总预算20%",
+            "将团队周例会改为隔周召开"
+        ],
+        "answer": "ABD"
+    },
+    {
+        "id": 535,
+        "title": "在一个Scrum团队中，以下哪些行为是产品负责人（PO）的正确职责？（多选）",
+        "type": "多选",
+        "options": [
+            "管理并维护Product Backlog",
+            "确定Backlog条目的优先级",
+            "指导开发团队如何实现具体功能",
+            "代表客户参加Sprint评审",
+            "决定Sprint内的工作任务分配"
+        ],
+        "answer": "ABD"
+    },
+    {
+        "id": 536,
+        "title": "以下哪些属于项目质量管理中【质量控制】的活动？（多选）",
+        "type": "多选",
+        "options": [
+            "对产品进行测试并记录缺陷",
+            "审计项目使用的开发流程是否符合规范",
+            "通过检查验证交付物是否满足验收标准",
+            "制定质量管理计划",
+            "使用控制图监测过程是否稳定"
+        ],
+        "answer": "ACE"
+    },
+    {
+        "id": 537,
+        "title": "某数智化项目团队计划采用DevOps模式进行持续交付，以下哪些实践是DevOps的核心支柱？（多选）",
+        "type": "多选",
+        "options": [
+            "持续集成与持续交付（CI/CD）",
+            "基础设施即代码（IaC）",
+            "完全消除所有手动测试",
+            "跨开发与运维的文化协作",
+            "自动化监控与快速反馈"
+        ],
+        "answer": "ABDE"
+    },
+    {
+        "id": 538,
+        "title": "以下哪些指标可以帮助项目经理综合评估项目的健康状况？（多选）",
+        "type": "多选",
+        "options": [
+            "CPI（成本绩效指数）",
+            "SPI（进度绩效指数）",
+            "团队成员的工作满意度",
+            "已关闭风险的数量",
+            "已识别和应对的高优先级风险数量"
+        ],
+        "answer": "ABCE"
+    },
+    {
+        "id": 539,
+        "title": "在大规模敏捷（SAFe）框架中，以下哪些活动属于PI（项目增量）计划会的核心输出？（多选）",
+        "type": "多选",
+        "options": [
+            "各团队的PI目标（Team PI Objectives）",
+            "已识别并可视化的跨团队依赖",
+            "各Sprint的详细技术设计方案",
+            "ART级别的风险登记",
+            "详细的代码实现计划"
+        ],
+        "answer": "ABD"
+    },
+    {
+        "id": 540,
+        "title": "以下哪些措施有助于有效管理项目中的范围蔓延（Scope Creep）？（多选）",
+        "type": "多选",
+        "options": [
+            "建立清晰的WBS和范围基准",
+            "对所有范围变更严格执行变更控制流程",
+            "对干系人的每一个需求都立即接受",
+            "定期进行范围核实，确认交付物与基准一致",
+            "明确项目的验收标准"
+        ],
+        "answer": "ABDE"
+    },
+    {
+        "id": 541,
+        "title": "某数智化项目采用敏捷交付，项目结束时需要对整个项目进行绩效评估。以下哪些维度应纳入评估范围？（多选）",
+        "type": "多选",
+        "options": [
+            "产品价值交付（是否实现业务目标和用户价值）",
+            "团队敏捷成熟度（是否真正实践了自组织、持续改进等）",
+            "每个Sprint的速度是否稳定增长",
+            "技术健康度（代码质量、技术债务水平）",
+            "干系人满意度"
+        ],
+        "answer": "ABDE"
+    },
+    {
+        "id": 542,
+        "title": "项目经理在制定综合变更控制系统时，以下哪些要素是必须包含的？（多选）",
+        "type": "多选",
+        "options": [
+            "变更请求的提交和记录流程",
+            "变更影响评估（对范围、进度、成本、质量、风险的影响）",
+            "变更控制委员会（CCB）的审批权限和决策流程",
+            "确保所有变更请求最终都被批准",
+            "已批准变更在各项目文件中的落实跟踪"
+        ],
+        "answer": "ABCE"
+    },
+    {
+        "id": 543,
+        "title": "数智化组织在推进企业级敏捷转型过程中，以下哪些因素是转型成功的关键障碍，需要重点管理？（多选）",
+        "type": "多选",
+        "options": [
+            "领导层对敏捷价值观的真正认同和示范",
+            "组织结构的竖井效应（Silos）阻碍跨部门协作",
+            "推广了最新的敏捷工具软件",
+            "绩效考核体系与敏捷团队协作文化的冲突",
+            "固有的【先规划后执行】文化对拥抱不确定性的抵触"
+        ],
+        "answer": "ABDE"
+    },
+    {
+        "id": 544,
+        "title": "项目经理在召开干系人会议时，决定根据每位干系人的关注重点定制会议内容，而不是向所有人发送同样的报告。这种做法符合有效的沟通管理原则。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 545,
+        "title": "在Scrum框架中，Scrum Master的主要职责是负责管理团队成员的日常工作绩效，确保每人完成分配的任务。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 546,
+        "title": "敏捷宣言中，【个体与互动】比【流程与工具】更重要。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 547,
+        "title": "项目管理计划一旦获得批准，就不能再进行任何更改。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 548,
+        "title": "WBS的作用是分解项目工作范围，WBS中的每个层级必须用动词开头描述具体活动。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 549,
+        "title": "项目成本超支时，若CPI持续低于1，仅靠提高团队工作强度（加班）通常无法从根本上改善CPI。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 550,
+        "title": "在项目执行过程中，项目经理发现某个承包商正在以明显低于市场价格的报价履行合同，这可能是潜在的项目风险信号，项目经理应予以关注并评估。",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 551,
+        "title": "中国移动提供敏捷开发、DevSecOps工具链服务的产品是（ ）",
+        "type": "单选",
+        "options": [
+            "磐基PaaS",
+            "磐舟",
+            "Jenkins",
+            "磐维"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 552,
+        "title": "磐基PaaS平台主要适用于以下哪种场景（ ）",
+        "type": "单选",
+        "options": [
+            "数据库服务",
+            "应用上云",
+            "阿里云PaaS",
+            "智能体开发"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 553,
+        "title": "围绕“数据、算法、算力”三大要素设计的中国移动MaaS平台是（ ）",
+        "type": "单选",
+        "options": [
+            "聚智平台",
+            "磐智平台",
+            "百度飞桨",
+            "云枢"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 554,
+        "title": "能够实现“IT换人”、降本增效的中国移动数智员工产品是（ ）",
+        "type": "单选",
+        "options": [
+            "磐匠",
+            "UiPath",
+            "JoinAI Code",
+            "九天MoMA"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 555,
+        "title": "以下是中国移动自主研发的关系型数据库是（ ）",
+        "type": "单选",
+        "options": [
+            "磐道",
+            "磐维",
+            "MySQL",
+            "聚智平台"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 556,
+        "title": "灵畿平台的核心理念“四共”不包括（ ）",
+        "type": "单选",
+        "options": [
+            "共研发平台",
+            "共研发管理",
+            "共客户资源",
+            "共技术栈"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 557,
+        "title": "专为数学场景优化、擅长数学推理的中国移动九天大模型是（ ）",
+        "type": "单选",
+        "options": [
+            "Jiutian-Code-8b",
+            "Jiutian-Math-8b",
+            "ChatGPT",
+            "以上都不是"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 558,
+        "title": "中国移动为企业级深度定制开发的自研AI Coding命令行工具是（ ）",
+        "type": "单选",
+        "options": [
+            "JoinAI Code",
+            "Git",
+            "磐智MaaS平台",
+            "聚智平台"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 559,
+        "title": "被誉为“能力中枢大脑”，是移动云智慧中台核心组件的是（ ）",
+        "type": "单选",
+        "options": [
+            "磐道",
+            "云枢",
+            "华为云中台",
+            "磐基PaaS"
+        ],
+        "answer": "B"
+    },
+    {
+        "id": 560,
+        "title": "中国移动打造的\"龙虾\"智能体是（ ）",
+        "type": "单选",
+        "options": [
+            "聚智平台",
+            "磐匠",
+            "MobClaw",
+            "openclaw"
+        ],
+        "answer": "C"
+    },
+    {
+        "id": 561,
+        "title": "以下属于中国移动九天系列大模型的有（ ）",
+        "type": "多选",
+        "options": [
+            "Jiutian-Code-8b",
+            "Jiutian-Math-8b",
+            "kimi",
+            "百度文心一言"
+        ],
+        "answer": "AB"
+    },
+    {
+        "id": 562,
+        "title": "灵畿平台“四共”核心理念包括（ ）",
+        "type": "多选",
+        "options": [
+            "共研发平台",
+            "共研发管理",
+            "共能力中台",
+            "共技术栈"
+        ],
+        "answer": "ABCD"
+    },
+    {
+        "id": 563,
+        "title": "以下属于中国移动智能体相关产品的有（ ）",
+        "type": "多选",
+        "options": [
+            "Claude Code",
+            "MobClaw",
+            "阿里小蜜",
+            "JoinAI Code"
+        ],
+        "answer": "BD"
+    },
+    {
+        "id": 564,
+        "title": "以下属于中国移动自研数据库相关的产品有（ ）",
+        "type": "多选",
+        "options": [
+            "磐维",
+            "甲骨文数据库",
+            "磐舟",
+            "以上都不是"
+        ],
+        "answer": "A"
+    },
+    {
+        "id": 565,
+        "title": "以下属于中国移动和研发相关产品的有（ ）",
+        "type": "多选",
+        "options": [
+            "磐舟",
+            "JoinAI Code",
+            "聚智平台",
+            "腾讯云开发"
+        ],
+        "answer": "ABC"
+    },
+    {
+        "id": 566,
+        "title": "磐基PaaS平台支持多集群管理、弹性伸缩等功能，区别于业界通用PaaS平台的核心是适配移动IT云。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 567,
+        "title": "磐智MaaS平台主要提供数据库产品与服务。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    },
+    {
+        "id": 568,
+        "title": "聚智平台是一个智能体开发平台，支持零代码开发。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 569,
+        "title": "云枢实现了数据流、业务流、AI能力和IT系统的深度融合。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "正确"
+    },
+    {
+        "id": 570,
+        "title": "Jiutian-Code-8b是专为数学场景优化的小型模型。（ ）",
+        "type": "判断",
+        "options": [
+            "正确",
+            "错误"
+        ],
+        "answer": "错误"
+    }
+];
+        // 打乱题目
+        // questions = questions.sort(() => Math.random() - 0.5);
 
-    <script src="script.js"></script>
+                       // 当前题目索引
+        let currentIndex = 0;
+        let userAnswer = [];  // 改为数组支持多选
+        let answeredQuestions = new Set();
+        let favoriteQuestions = loadFromStorage('favorites');
+        let wrongQuestions = loadFromStorage('wrong');
+        let answerConfirmed = false; // 标记多选题是否已确认答案
+        
+        // 从 localStorage 加载数据
+        function loadFromStorage(key) {
+            try {
+                const data = localStorage.getItem(key);
+                return data ? new Set(JSON.parse(data)) : new Set();
+            } catch (e) {
+                return new Set();
+            }
+        }
+        
+        // 保存数据到 localStorage
+        function saveToStorage(key, set) {
+            try {
+                localStorage.setItem(key, JSON.stringify([...set]));
+            } catch (e) {
+                console.error('保存数据失败', e);
+            }
+        }
+        
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            initQuestionGrid();
+            renderQuestion();
+            updateFavoriteCount();
+            updateWrongCount();
+        });
+        
+        // 渲染当前题目
+        function renderQuestion() {
+            const question = questions[currentIndex];
+            userAnswer = [];
+            
+            // 更新题目信息
+            document.getElementById('questionNum').textContent = `第${question.id}题`;
+            document.getElementById('questionType').textContent = question.type;
+            document.getElementById('questionTitleText').textContent = question.title;
+            document.getElementById('progress').textContent = `进度: ${currentIndex + 1}/${questions.length}`;
+            updateQuestionGrid();
+            updateFavoriteBtn();
+            
+            // 根据题目类型切换按钮
+            const showAnswerBtn = document.getElementById('showAnswerBtn');
+            const confirmAnswerBtn = document.getElementById('confirmAnswerBtn');
+            if (question.type === '多选') {
+                showAnswerBtn.style.display = 'none';
+                confirmAnswerBtn.style.display = 'inline-flex';
+            } else {
+                showAnswerBtn.style.display = 'inline-flex';
+                confirmAnswerBtn.style.display = 'none';
+            }
+            
+            // 清空选项区域
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            // 隐藏答案区域
+            document.getElementById('answerArea').style.display = 'none';
+            
+            // 生成选项
+            const optionLabels = ['A', 'B', 'C', 'D'];
+            question.options.forEach((option, index) => {
+                if (index < optionLabels.length) {
+                    const optionItem = document.createElement('div');
+                    optionItem.className = 'option-item';
+                    optionItem.onclick = () => selectOption(index);
+                    optionItem.dataset.index = index;
+                    
+                    optionItem.innerHTML = `
+                        <span class="option-label">${optionLabels[index]}</span>
+                        <span class="option-text">${option}</span>
+                    `;
+                    
+                    optionsContainer.appendChild(optionItem);
+                }
+            });
+        }
+        
+        // 确认多选题答案
+        function confirmAnswer() {
+            if (userAnswer.length === 0) {
+                alert('请至少选择一个选项');
+                return;
+            }
+            showAnswer();
+        }
+        
+        // 选择选项
+        function selectOption(index) {
+            const question = questions[currentIndex];
+            answeredQuestions.add(currentIndex);
+            
+            const options = document.querySelectorAll('.option-item');
+            
+            if (question.type === '多选') {
+                // 多选题：支持多选
+                const idx = userAnswer.indexOf(index);
+                if (idx > -1) {
+                    userAnswer.splice(idx, 1);
+                    options[index].classList.remove('selected');
+                } else {
+                    userAnswer.push(index);
+                    options[index].classList.add('selected');
+                }
+            } else {
+                // 单选题：单选，选择后直接显示答案
+                userAnswer = [index];
+                options.forEach(opt => opt.classList.remove('selected'));
+                options[index].classList.add('selected');
+                
+                // 单选题直接显示答案
+                showAnswer();
+            }
+            
+            updateQuestionGrid();
+            updateAnsweredCount();
+        }
+        
+        // 显示正确答案
+        function getCorrectAnswerIndices(question) {
+            const answer = question.answer;
+
+            if (question.type === '判断') {
+                if (answer === '√' || answer === '正确') return [0];
+                if (answer === '×' || answer === '错误') return [1];
+                return [answer.charCodeAt(0) - 'A'.charCodeAt(0)];
+            }
+
+            if (question.type === '多选') {
+                const separator = answer.includes('#') ? '#' : '';
+                const letters = separator ? answer.split(separator) : answer.split('');
+                return letters.map(l => l.charCodeAt(0) - 'A'.charCodeAt(0));
+            }
+
+            return [answer.charCodeAt(0) - 'A'.charCodeAt(0)];
+        }
+
+        function showAnswer() {
+            answerConfirmed = true; // 标记已确认答案
+            const question = questions[currentIndex];
+            const answerArea = document.getElementById('answerArea');
+
+            const correctIndices = getCorrectAnswerIndices(question);
+
+            let displayAnswer = question.answer;
+            if (question.type === '判断') {
+                if (question.answer === '√') displayAnswer = 'A (正确)';
+                else if (question.answer === '×') displayAnswer = 'B (错误)';
+            }
+
+            answerArea.innerHTML = `<strong>正确答案: ${displayAnswer}</strong>`;
+            answerArea.className = 'answer-area answer-correct';
+            answerArea.style.display = 'block';
+
+            const options = document.querySelectorAll('.option-item');
+            
+            // 判断是否答对
+            let isWrong = false;
+            if (userAnswer.length === 0) {
+                isWrong = true;
+            } else {
+                // 检查用户答案是否完全正确
+                if (userAnswer.length !== correctIndices.length) {
+                    isWrong = true;
+                } else {
+                    for (let idx of userAnswer) {
+                        if (!correctIndices.includes(idx)) {
+                            isWrong = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            options.forEach((opt, index) => {
+                opt.classList.remove('correct', 'wrong');
+
+                if (correctIndices.includes(index)) {
+                    opt.classList.add('correct');
+                }
+                // 用户选择了但不是正确答案
+                if (userAnswer.includes(index) && !correctIndices.includes(index)) {
+                    opt.classList.add('wrong');
+                }
+            });
+
+            if (isWrong && userAnswer.length > 0) {
+                wrongQuestions.add(currentIndex);
+                saveToStorage('wrong', wrongQuestions);
+                updateWrongCount();
+            }
+        }
+        
+        function initQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            questions.forEach((q, index) => {
+                const item = document.createElement('div');
+                item.className = 'question-grid-item';
+                item.textContent = q.id;
+                item.dataset.index = index;
+                item.onclick = () => jumpToQuestion(index);
+                grid.appendChild(item);
+            });
+            updateQuestionGrid();
+            updateAnsweredCount();
+        }
+
+        function toggleQuestionGrid() {
+            const panel = document.getElementById('questionGridPanel');
+            const arrow = document.getElementById('gridArrow');
+            panel.classList.toggle('open');
+            arrow.classList.toggle('open');
+        }
+
+        function jumpToQuestion(index) {
+            currentIndex = index;
+            renderQuestion();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateQuestionGrid() {
+            const items = document.querySelectorAll('.question-grid-item');
+            items.forEach(item => {
+                const idx = parseInt(item.dataset.index);
+                item.classList.remove('current', 'answered', 'wrong');
+                if (idx === currentIndex) {
+                    item.classList.add('current');
+                }
+                if (wrongQuestions.has(idx)) {
+                    item.classList.add('wrong');
+                } else if (answeredQuestions.has(idx)) {
+                    item.classList.add('answered');
+                }
+            });
+        }
+
+        function updateAnsweredCount() {
+            document.getElementById('answeredCount').textContent = `已答: ${answeredQuestions.size}/${questions.length}`;
+        }
+
+        // 重新选择
+        function clearSelection() {
+            userAnswer = [];
+            
+            // 清除所有选中状态
+            const options = document.querySelectorAll('.option-item');
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'wrong');
+            });
+            
+            // 隐藏答案区域
+            document.getElementById('answerArea').style.display = 'none';
+        }
+        
+        // 上一题
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderQuestion();
+            } else {
+                alert('已经是第一题了');
+            }
+        }
+        
+        // 下一题
+        function nextQuestion() {
+            const question = questions[currentIndex];
+            
+            // 如果是多选题且还未确认答案，提示用户
+            if (question.type === '多选' && !answerConfirmed) {
+                alert('请先点击"确认答案"按钮查看结果后再切换下一题');
+                return;
+            }
+            
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                answerConfirmed = false; // 重置确认状态
+                renderQuestion();
+            } else {
+                alert('已经是最后一题了');
+            }
+        }
+
+        // 切换收藏状态
+        function toggleFavorite() {
+            if (favoriteQuestions.has(currentIndex)) {
+                favoriteQuestions.delete(currentIndex);
+            } else {
+                favoriteQuestions.add(currentIndex);
+            }
+            saveToStorage('favorites', favoriteQuestions);
+            updateFavoriteBtn();
+            updateFavoriteCount();
+        }
+
+        // 更新收藏按钮状态
+        function updateFavoriteBtn() {
+            const btn = document.getElementById('favoriteBtn');
+            if (favoriteQuestions.has(currentIndex)) {
+                btn.innerHTML = '<span class="favorite-icon">★</span>已收藏';
+            } else {
+                btn.innerHTML = '<span class="favorite-icon">☆</span>收藏本题';
+            }
+        }
+
+        // 更新收藏数量显示
+        function updateFavoriteCount() {
+            const btn = document.querySelector('.btn-favorite:not(#favoriteBtn)');
+            btn.innerHTML = `<span class="favorite-icon">★</span>收藏 (${favoriteQuestions.size})`;
+        }
+
+        // 更新错题数量显示
+        function updateWrongCount() {
+            const btn = document.querySelector('.btn-wrong');
+            btn.innerHTML = `<span>✗</span>错题 (${wrongQuestions.size})`;
+        }
+
+        // 显示收藏列表
+        function showFavorites() {
+            const modal = document.getElementById('favoriteModal');
+            const list = document.getElementById('favoriteList');
+            
+            if (favoriteQuestions.size === 0) {
+                list.innerHTML = '<div class="empty-state">暂无收藏的题目</div>';
+            } else {
+                list.innerHTML = '';
+                const sortedIndices = Array.from(favoriteQuestions).sort((a, b) => a - b);
+                sortedIndices.forEach(index => {
+                    const question = questions[index];
+                    const item = document.createElement('div');
+                    item.className = 'fav-item';
+                    item.onclick = () => {
+                        closeModal('favoriteModal');
+                        jumpToQuestion(index);
+                    };
+                    item.innerHTML = `
+                        <span class="fav-item-num">第${question.id}题</span>
+                        <span class="fav-item-title">${question.title}</span>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+            modal.classList.add('show');
+        }
+
+        // 显示错题列表
+        function showWrongQuestions() {
+            const modal = document.getElementById('wrongModal');
+            const list = document.getElementById('wrongList');
+            
+            if (wrongQuestions.size === 0) {
+                list.innerHTML = '<div class="empty-state">暂无错题记录</div>';
+            } else {
+                list.innerHTML = '';
+                const sortedIndices = Array.from(wrongQuestions).sort((a, b) => a - b);
+                sortedIndices.forEach(index => {
+                    const question = questions[index];
+                    const item = document.createElement('div');
+                    item.className = 'wrong-item';
+                    item.onclick = () => {
+                        closeModal('wrongModal');
+                        jumpToQuestion(index);
+                    };
+                    item.innerHTML = `
+                        <span class="wrong-item-num">第${question.id}题</span>
+                        <span class="wrong-item-title">${question.title}</span>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+            modal.classList.add('show');
+        }
+
+        // 关闭模态框
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // 导出数据
+        function exportData() {
+            const data = {
+                favorites: [...favoriteQuestions],
+                wrong: [...wrongQuestions],
+                answered: [...answeredQuestions],
+                exportTime: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `刷题数据_${new Date().toLocaleDateString('zh-CN').replace(/\//g, '-')}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('数据导出成功！请保存好导出的 JSON 文件。');
+        }
+
+        // 导入数据
+        function importData(event) {
+            const file = event.target.files[0];
+            processFile(file);
+            event.target.value = '';
+        }
+
+        // 处理文件
+        function processFile(file) {
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (data.favorites && Array.isArray(data.favorites)) {
+                        data.favorites.forEach(idx => favoriteQuestions.add(idx));
+                        saveToStorage('favorites', favoriteQuestions);
+                    }
+                    
+                    if (data.wrong && Array.isArray(data.wrong)) {
+                        data.wrong.forEach(idx => wrongQuestions.add(idx));
+                        saveToStorage('wrong', wrongQuestions);
+                    }
+                    
+                    if (data.answered && Array.isArray(data.answered)) {
+                        data.answered.forEach(idx => answeredQuestions.add(idx));
+                    }
+                    
+                    updateFavoriteCount();
+                    updateWrongCount();
+                    updateAnsweredCount();
+                    updateQuestionGrid();
+                    showDropSuccess();
+                } catch (error) {
+                    alert('导入失败，请确保文件格式正确。');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // 拖放处理
+        function handleDragOver(event) {
+            event.preventDefault();
+            document.getElementById('dropZone').classList.add('dragover');
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            document.getElementById('dropZone').classList.remove('dragover');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            document.getElementById('dropZone').classList.remove('dragover');
+            
+            const file = event.dataTransfer.files[0];
+            if (file && file.name.endsWith('.json')) {
+                processFile(file);
+            } else {
+                alert('请拖放 JSON 格式的刷题数据文件');
+            }
+        }
+
+        // 显示拖放成功效果
+        function showDropSuccess() {
+            const dropZone = document.getElementById('dropZone');
+            dropZone.classList.add('drag-success');
+            dropZone.innerHTML = '<p>✓ 数据导入成功！</p>';
+            setTimeout(() => {
+                dropZone.classList.remove('drag-success');
+                dropZone.innerHTML = '<p>📁 将刷题数据 JSON 文件拖到这里快速导入</p>';
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
